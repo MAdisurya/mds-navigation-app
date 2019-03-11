@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/MDS_ARTour/_Scenes/ARScene.unity
+  isLoaded: 1
+  isActive: 1
