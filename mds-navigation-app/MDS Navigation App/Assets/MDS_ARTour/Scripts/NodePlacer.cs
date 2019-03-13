@@ -37,6 +37,7 @@ namespace ARTour
                     nodeInfo.py = hit.point.y;
                     nodeInfo.pz = hit.point.z;
 
+                    // Add node to scene, and register in NodeManager
                     m_NodeManager.AddNode(nodeInfo);
                 }
             }

@@ -15,7 +15,7 @@ namespace ARTour
         private static MainController _instance;
 
         // Reference to controllers
-        public SaveAndLoadMapController SaveAndLoadMapController;
+        public SaveAndLoadController _saveAndLoadController;
 
         // Getters
         public static MainController Instance
@@ -29,7 +29,7 @@ namespace ARTour
         void Awake()
         {
             // Assertions
-            Assert.IsNotNull(SaveAndLoadMapController);
+            Assert.IsNotNull(_saveAndLoadController);
 
             if (_instance == null)
             {
@@ -48,7 +48,9 @@ namespace ARTour
             LibPlacenote.Instance.RegisterListener(this);
         }
 
-        // ARKit Initialize function
+        /// <summary>
+        /// ARKit Initialize function
+        /// </summary>
         private void StartARKit()
         {
             Application.targetFrameRate = 60;
@@ -70,7 +72,7 @@ namespace ARTour
         { 
             if (currStatus == LibPlacenote.MappingStatus.RUNNING && prevStatus == LibPlacenote.MappingStatus.LOST)
             {
-                SaveAndLoadMapController.notificationText.text = "Localized!";
+                _saveAndLoadController.notificationText.text = "Localized!";
             }
         }
     }

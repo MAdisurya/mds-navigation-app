@@ -66,7 +66,7 @@ namespace ARTour
         /// <summary>
         /// Helper function to convert node to JSON
         /// </summary>
-        public JObject Nodes2JSON()
+        public JObject NodesToJSON()
         {
             NodeList nodeList = new NodeList();
 
