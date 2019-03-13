@@ -16,6 +16,7 @@ namespace ARTour
 
         // Reference to controllers
         public SaveAndLoadController _saveAndLoadController;
+        public NodeController _nodeController;
 
         // Getters
         public static MainController Instance
@@ -30,10 +31,15 @@ namespace ARTour
         {
             // Assertions
             Assert.IsNotNull(_saveAndLoadController);
+            Assert.IsNotNull(_nodeController);
 
             if (_instance == null)
             {
                 _instance = this;
+            }
+            else if (_instance == this)
+            {
+                Destroy(this);
             }
         }
 

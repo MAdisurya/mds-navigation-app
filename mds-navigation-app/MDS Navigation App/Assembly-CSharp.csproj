@@ -54,8 +54,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\MainController.cs" />
+     <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\NodeController.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\SaveAndLoadController.cs" />
-     <Compile Include="Assets\MDS_ARTour\Scripts\NodeManager.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\NodePlacer.cs" />
      <Compile Include="Assets\Placenote\EditorCoroutines\Scripts\EditorCoroutineExtensions.cs" />
      <Compile Include="Assets\Placenote\EditorCoroutines\Scripts\EditorCoroutines.cs" />

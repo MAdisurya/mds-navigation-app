@@ -9,11 +9,11 @@ namespace ARTour
 {
     public class NodePlacer : MonoBehaviour
     {
-        public NodeManager m_NodeManager;
+        public NodeController m_NodeController;
 
         void Awake()
         {
-            Assert.IsNotNull(m_NodeManager);
+            Assert.IsNotNull(m_NodeController);
         }
 
         void Update()
@@ -38,7 +38,7 @@ namespace ARTour
                     nodeInfo.pz = hit.point.z;
 
                     // Add node to scene, and register in NodeManager
-                    m_NodeManager.AddNode(nodeInfo);
+                    m_NodeController.AddNode(nodeInfo);
                 }
             }
 
@@ -103,7 +103,7 @@ namespace ARTour
                     nodeInfo.py = hitPosition.y;
                     nodeInfo.pz = hitPosition.z;
 
-                    m_NodeManager.AddNode(nodeInfo);
+                    m_NodeController.AddNode(nodeInfo);
 
                     return true;
                 }

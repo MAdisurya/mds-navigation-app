@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e758510d83535430589332b96bfe42c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SaveAndLoadMapController: {fileID: 6816733083508429767}
+  _saveAndLoadController: {fileID: 6816733083508429767}
+  _nodeController: {fileID: 6184070477483862515}
 --- !u!1 &6816733082548007122
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,6 +74,7 @@ Transform:
   m_Children:
   - {fileID: 6816733081586390826}
   - {fileID: 6816733083508429766}
+  - {fileID: 4731054810850268208}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -87,7 +89,7 @@ GameObject:
   - component: {fileID: 6816733083508429766}
   - component: {fileID: 6816733083508429767}
   m_Layer: 0
-  m_Name: SaveAndLoadMapController
+  m_Name: SaveAndLoadController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,3 +125,48 @@ MonoBehaviour:
   saveMapButton: {fileID: 0}
   loadMapButton: {fileID: 0}
   notificationText: {fileID: 0}
+--- !u!1 &8312632837977981976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4731054810850268208}
+  - component: {fileID: 6184070477483862515}
+  m_Layer: 0
+  m_Name: NodeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4731054810850268208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8312632837977981976}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6816733082548007123}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6184070477483862515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8312632837977981976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4d3e7e044e9047bf9f74eea70e5912a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodePrefab: {fileID: 6318326343753734546, guid: c9192d2c1886f483f93df5a801eccd2d,
+    type: 3}
