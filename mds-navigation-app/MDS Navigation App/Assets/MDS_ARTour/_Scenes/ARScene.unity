@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SimulatorWorld
       objectReference: {fileID: 0}
+    - target: {fileID: 1732696957756640, guid: deed08229cf184033b112df5d5ffcae2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4091978469809544, guid: deed08229cf184033b112df5d5ffcae2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1297,6 +1301,12 @@ PrefabInstance:
       propertyPath: notificationText
       value: 
       objectReference: {fileID: 1637540351}
+    - target: {fileID: 6184070477483862515, guid: f8787863fb2f24906aef031d3d56d9d5,
+        type: 3}
+      propertyPath: m_NodePrefab
+      value: 
+      objectReference: {fileID: 7459552919649826144, guid: c9192d2c1886f483f93df5a801eccd2d,
+        type: 3}
     - target: {fileID: 6816733082548007123, guid: f8787863fb2f24906aef031d3d56d9d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1407,6 +1417,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4701138610990218, guid: e19a1438a65c942e79c50c51765da920, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114158884247981124, guid: e19a1438a65c942e79c50c51765da920,
+        type: 3}
+      propertyPath: startAlignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114035732046362572, guid: e19a1438a65c942e79c50c51765da920,
+        type: 3}
+      propertyPath: DisableARRemote
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
