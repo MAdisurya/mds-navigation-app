@@ -22,17 +22,16 @@ namespace ARTour
         public NodeInfo[] nodes;
     }
 
-    public class NodeManager: MonoBehaviour
+    public class NodeController: MonoBehaviour
     {
-        public GameObject nodePrefab;
+        public MDSNode m_NodePrefab;
 
-        private List<NodeInfo> m_NodeInfoList = new List<NodeInfo>();
-        private List<GameObject> m_NodeObjList = new List<GameObject>();
+        private List<MDSNode> m_NodeObjList = new List<MDSNode>();
 
         void Awake()
         {
             // Assertions
-            Assert.IsNotNull(nodePrefab);
+            Assert.IsNotNull(m_NodePrefab);
         }
         
         /// <summary>
@@ -40,10 +39,9 @@ namespace ARTour
         /// </summary>
         public void AddNode(NodeInfo nodeInfo)
         {
-            m_NodeInfoList.Add(nodeInfo);
+            MDSNode newNode = Instantiate(m_NodePrefab);
 
-            GameObject newNode = Instantiate(nodePrefab);
-
+            newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
 
             m_NodeObjList.Add(newNode);
@@ -54,13 +52,12 @@ namespace ARTour
         /// </summary>
         public void ClearNodes()
         {
-            foreach (GameObject obj in m_NodeObjList)
+            foreach (MDSNode obj in m_NodeObjList)
             {
-                Destroy(obj);
+                Destroy(obj.gameObject);
             }
 
             m_NodeObjList.Clear();
-            m_NodeInfoList.Clear();
         }
 
         /// <summary>
@@ -70,13 +67,12 @@ namespace ARTour
         {
             NodeList nodeList = new NodeList();
 
-            nodeList.nodes = new NodeInfo[m_NodeInfoList.Count];
+            nodeList.nodes = new NodeInfo[m_NodeObjList.Count];
 
-            for (int i = 0; i < m_NodeInfoList.Count; i++)
+            for (int i = 0; i < m_NodeObjList.Count; i++)
             {
-                nodeList.nodes[i] = m_NodeInfoList[i];
+                nodeList.nodes[i] = m_NodeObjList[i].NodeInfo;
             }
-
             return JObject.FromObject(nodeList);
         }     
 
@@ -93,7 +89,7 @@ namespace ARTour
                 
                 if (nodeList.nodes == null)
                 {
-                    Debug.Log("No models added.");
+                    Debug.Log("No nodes added.");
                     return;
                 }
 

@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7323111831251958724}
-  - component: {fileID: 7323111831251958727}
   - component: {fileID: 7323111831251958726}
   m_Layer: 0
-  m_Name: NodeManager
+  m_Name: NodePlacer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,20 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7323111831251958727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7323111831251958721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4d3e7e044e9047bf9f74eea70e5912a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodePrefab: {fileID: 6318326343753734546, guid: c9192d2c1886f483f93df5a801eccd2d,
-    type: 3}
 --- !u!114 &7323111831251958726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49377b9d2c8874573bb953d582ae45ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NodeManager: {fileID: 7323111831251958727}
+  m_NodeController: {fileID: 0}

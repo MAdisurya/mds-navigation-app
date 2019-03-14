@@ -4,10 +4,12 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace ARTour
 {
-    public class SaveAndLoadMapController : MonoBehaviour
+    public class SaveAndLoadController : MonoBehaviour
     {
         // UI GameObject references
         public GameObject newMapButton;
@@ -17,6 +19,14 @@ namespace ARTour
 
         // Holds the last saved map ID
         private string m_SavedMapId;
+
+        private LibPlacenote.MapMetadata m_DownloadedMetadata;
+
+        // Getters
+        public LibPlacenote.MapMetadata DownloadedMetadata
+        {
+            get { return m_DownloadedMetadata; }
+        }
 
         void Awake()
         {
@@ -75,6 +85,26 @@ namespace ARTour
                     if (completed)
                     {
                         notificationText.text = "Upload Complete: " + m_SavedMapId;
+
+                        // Upload meta data
+                        LibPlacenote.MapMetadataSettable metadata = CreateMetaDataObject();
+
+                        LibPlacenote.Instance.SetMetadata(m_SavedMapId, metadata, 
+                            (success) =>
+                            {
+                                if (success)
+                                {
+                                    notificationText.text = "Meta data successfully saved";
+                                }
+                                else
+                                {
+                                    notificationText.text = "Meta data failed to save";
+                                }
+                            }
+                        );
+
+                        // Clear current nodes after saving
+                        MainController.Instance.GetNodeController().ClearNodes();
                     }
                     else if (faulted)
                     {
@@ -117,14 +147,33 @@ namespace ARTour
                 {
                     if (completed)
                     {
-                        // Start the Placenote Session
-                        LibPlacenote.Instance.StartSession();
+                        // Download meta data
+                        LibPlacenote.Instance.GetMetadata(m_SavedMapId,
+                            (LibPlacenote.MapMetadata result) =>
+                            {
+                                if (result != null)
+                                {
+                                    // Store result to downloadedMetaData variable, and use in 
+                                    // OnStatusChange() callback in MainController 
+                                    m_DownloadedMetadata = result;
 
-                        notificationText.text = "Localizing Map: " + m_SavedMapId;
+                                    // Try to localize the map
+                                    LibPlacenote.Instance.StartSession();
+                                    
+                                    notificationText.text = "Trying to Localize Map: " + m_SavedMapId;
 
-                        saveMapButton.SetActive(true);
-                        newMapButton.SetActive(true);
-                        loadMapButton.SetActive(false);
+                                    // Manage UI
+                                    saveMapButton.SetActive(true);
+                                    newMapButton.SetActive(true);
+                                    loadMapButton.SetActive(false);
+                                }
+                                else
+                                {
+                                    notificationText.text = "Failed to download meta data";
+                                    return;
+                                }
+                            }
+                        );
                     }
                     else if (faulted)
                     {
@@ -173,6 +222,34 @@ namespace ARTour
             {
                 return null;
             }
+        }
+
+        private LibPlacenote.MapMetadataSettable CreateMetaDataObject()
+        {
+            LibPlacenote.MapMetadataSettable metadata = new LibPlacenote.MapMetadataSettable();
+
+            metadata.name = "MDS AR tour map";
+
+            // Get GPS location of device to save with map
+            bool usingLocation = (Input.location.status == LocationServiceStatus.Running);
+            LocationInfo locationInfo = Input.location.lastData;
+
+            if (usingLocation)
+            {
+                metadata.location = new LibPlacenote.MapLocation();
+                metadata.location.latitude = locationInfo.latitude;
+                metadata.location.longitude = locationInfo.longitude;
+                metadata.location.altitude = locationInfo.altitude;
+            }
+
+            JObject userdata = new JObject();
+            JObject nodeList = MainController.Instance.GetNodeController().NodesToJSON();
+            
+            userdata["nodeList"] = nodeList;
+
+            metadata.userdata = userdata;
+            
+            return metadata;
         }
     }
 }
