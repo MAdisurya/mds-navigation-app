@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-
 using UnityEngine.XR.iOS; // Import ARKit Library
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace ARTour
 {
@@ -15,13 +16,25 @@ namespace ARTour
         private static MainController _instance;
 
         // Reference to controllers
-        public SaveAndLoadController _saveAndLoadController;
-        public NodeController _nodeController;
+        [SerializeField]
+        private SaveAndLoadController _saveAndLoadController;
+        [SerializeField]
+        private NodeController _nodeController;
 
         // Getters
         public static MainController Instance
         {
             get { return _instance; }
+        }
+
+        public SaveAndLoadController GetSaveAndLoadController()
+        {
+            return _saveAndLoadController;
+        }
+
+        public NodeController GetNodeController()
+        {
+            return _nodeController;
         }
 
         // Private constructor for singleton pattern
@@ -79,6 +92,13 @@ namespace ARTour
             if (currStatus == LibPlacenote.MappingStatus.RUNNING && prevStatus == LibPlacenote.MappingStatus.LOST)
             {
                 _saveAndLoadController.notificationText.text = "Localized!";
+
+                if (_saveAndLoadController.DownloadedMetadata != null)
+                {
+                    JToken metadata = _saveAndLoadController.DownloadedMetadata.userdata;
+
+                    _nodeController.LoadNodesFromJSON(metadata);
+                }
             }
         }
     }
