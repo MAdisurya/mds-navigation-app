@@ -50,18 +50,18 @@ namespace ARTour
             {
                 Touch touch = Input.GetTouch(0);
 
-                if (touch.phase == Touch.Ended)
+                if (touch.phase == TouchPhase.Ended)
                 {
                     // Check if touching a UI button
                     if (EventSystem.current.currentSelectedGameObject == null)
                     {
                         // If not, add a new shape
-                        Vector3 screenPos = Camera.main.ScreenToViewPortPoint(touch.position);
+                        Vector3 screenPos = Camera.main.ScreenToViewportPoint(touch.position);
                         
                         ARPoint point = new ARPoint
                         {
-                            x = screenPos.x;
-                            y = screenPos.y;
+                            x = screenPos.x,
+                            y = screenPos.y
                         };
 
                         ARHitTestResultType[] resultTypes = 
@@ -69,6 +69,15 @@ namespace ARTour
                             ARHitTestResultType.ARHitTestResultTypeExistingPlaneUsingExtent,
                             ARHitTestResultType.ARHitTestResultTypeFeaturePoint
                         };
+
+                        foreach (ARHitTestResultType resultType in resultTypes)
+                        {
+                            if (HitTestWithResultType(point, resultType))
+                            {
+                                Debug.Log("Found a hit test result");
+                                return;
+                            }
+                        }
                     }
                 }
             }

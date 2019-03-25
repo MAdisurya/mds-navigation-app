@@ -78,6 +78,8 @@ namespace ARTour
                     m_SavedMapId = mapId;
 
                     LibPlacenote.Instance.StopSession();
+                    FeaturesVisualizer.clearPointcloud();
+
                     WriteMapIDToFile(mapId);
                 },
                 (completed, faulted, percentage) =>

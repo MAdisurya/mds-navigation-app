@@ -81,6 +81,8 @@ namespace ARTour
             config.enableLightEstimation = true;
             
             m_Session.RunWithConfig(config);
+
+            Debug.Log("ARKit enabled");
         }
 
         // Called when a new pose is received from Placenote
