@@ -34,6 +34,12 @@ namespace ARTour
 
         private List<MDSNode> m_NodeObjList = new List<MDSNode>();
 
+        // Getters
+        public List<MDSNode> NodeObjList
+        {
+            get { return m_NodeObjList; }
+        }
+
         void Awake()
         {
             // Assertions
