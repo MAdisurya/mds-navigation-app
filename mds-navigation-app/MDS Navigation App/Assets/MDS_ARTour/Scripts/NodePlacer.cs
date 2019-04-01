@@ -36,6 +36,7 @@ namespace ARTour
                     nodeInfo.px = hit.point.x;
                     nodeInfo.py = hit.point.y;
                     nodeInfo.pz = hit.point.z;
+                    nodeInfo.nodeType = (int) m_NodeController._selectedNodeType;
 
                     // Add node to scene, and register in NodeManager
                     m_NodeController.AddNode(nodeInfo);
@@ -111,6 +112,7 @@ namespace ARTour
                     nodeInfo.px = hitPosition.x;
                     nodeInfo.py = hitPosition.y;
                     nodeInfo.pz = hitPosition.z;
+                    nodeInfo.nodeType = (int) m_NodeController._selectedNodeType;
 
                     m_NodeController.AddNode(nodeInfo);
 

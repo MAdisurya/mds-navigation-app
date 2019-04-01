@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -14,6 +15,8 @@ namespace ARTour
         public float px; // position.x
         public float py; // position.y
         public float pz; // position.z
+
+        public int nodeType; // mds node type stored using its raw value - int
     }
 
     [System.Serializable]
@@ -23,15 +26,35 @@ namespace ARTour
     }
 
     public class NodeController: MonoBehaviour
-    {
-        public MDSNode m_NodePrefab;
+    {   
+        public MDSNode m_WPNodePrefab; // Waypoint node prefab
+        public MDSNode m_EPNodePrefab; // Endpoint node prefab
+
+        public MDSNodeType _selectedNodeType = MDSNodeType.WAYPOINT; // Current selected node type, controlled by UI buttons
 
         private List<MDSNode> m_NodeObjList = new List<MDSNode>();
 
         void Awake()
         {
             // Assertions
-            Assert.IsNotNull(m_NodePrefab);
+            Assert.IsNotNull(m_WPNodePrefab);
+            Assert.IsNotNull(m_EPNodePrefab);
+        }
+
+        /// <summary>
+        /// Helper function that changes the selected node type for node placement
+        /// </summary>
+        public void ChangeSelectedNodeType(MDSNodeType nodeType)
+        {
+            _selectedNodeType = nodeType;
+        }
+
+        /// <summary>
+        /// Helper function that changes the selected node type using its raw value - int
+        /// </summary>
+        public void ChangeSelectedNodeType(int value)
+        {
+            _selectedNodeType = (MDSNodeType) value;
         }
         
         /// <summary>
@@ -39,7 +62,18 @@ namespace ARTour
         /// </summary>
         public void AddNode(NodeInfo nodeInfo)
         {
-            MDSNode newNode = Instantiate(m_NodePrefab);
+            MDSNode newNode = m_WPNodePrefab;
+
+            MDSNodeType nodeType = (MDSNodeType) nodeInfo.nodeType; // Cast stored node type to MDSNodeType enum
+            
+            if (nodeType == MDSNodeType.WAYPOINT)
+            {
+                newNode = Instantiate(m_WPNodePrefab);
+            }
+            else
+            {
+                newNode = Instantiate(m_EPNodePrefab);
+            }
 
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
