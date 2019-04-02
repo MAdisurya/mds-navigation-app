@@ -13,8 +13,6 @@ namespace ARTour
         ENDPOINT
     }
 
-    [RequireComponent(typeof(MeshFilter))]
-    [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(Collider))]
 
     public class MDSNode : MonoBehaviour
@@ -29,6 +27,7 @@ namespace ARTour
         private NodeInfo m_NodeInfo;
 
         private MDSNode m_Parent;
+        private MDSNode m_NextInList;
 
         // Getters & Setters
         public float HCost
@@ -66,8 +65,22 @@ namespace ARTour
             set { m_Parent = value; }
         }
 
-        // Methods
+        public MDSNode NextInList
+        {
+            get { return m_NextInList; }
+            set { m_NextInList = value; }
+        }
 
+        // Methods
+        
+        void Awake()
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Method that finds the closest neighbor (node) to this node
+        /// </summary>
         public void FindNeighbors(float maxDistance)
         {
             foreach (MDSNode node in MainController.Instance.GetNodeController().NodeObjList)
@@ -77,6 +90,28 @@ namespace ARTour
                     neighbors.Add(node);
                 }
             }
+        }
+
+        /// <summary>
+        /// Helper method that enables/renders the child node of this node
+        /// </summary>
+        public void Activate()
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+
+            if (NextInList != null)
+            {
+                transform.LookAt(NextInList.transform);
+            }
+        }
+
+        
+        /// <summary>
+        /// Helper method that disables the child node of this node
+        /// </summary>
+        public void Deactivate()
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }

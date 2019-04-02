@@ -10,7 +10,7 @@ namespace ARTour
         /// AStar algorithm method that finds a path using start node, target node, and all nodes.
         /// Returns a list of nodes
         /// </summary> 
-        public List<MDSNode> FindPath(MDSNode startNode, MDSNode targetNode, MDSNode[] allNodes)
+        public List<MDSNode> FindPath(MDSNode startNode, MDSNode targetNode, List<MDSNode> allNodes)
         {
             List<MDSNode> openSet = new List<MDSNode>();
             List<MDSNode> closedSet = new List<MDSNode>();

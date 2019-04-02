@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d3e7e044e9047bf9f74eea70e5912a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_WPNodePrefab: {fileID: 7459552919649826144, guid: c9192d2c1886f483f93df5a801eccd2d,
+  m_WPNodePrefab: {fileID: 5974053080469607371, guid: 6aa6a59ab8f7842cea62b1f35b17f141,
     type: 3}
-  m_EPNodePrefab: {fileID: 2515979869593248316, guid: 2d96803581c08494da193bb97342bf0b,
+  m_EPNodePrefab: {fileID: 3966834836293400797, guid: 0b815ae72fa654749ac4b6ba33c7e164,
     type: 3}
   _selectedNodeType: 0

@@ -34,10 +34,17 @@ namespace ARTour
 
         private List<MDSNode> m_NodeObjList = new List<MDSNode>();
 
+        private MDSNode m_TargetNode; // Target node for passing into AStar pathfinding algorithm
+
         // Getters
         public List<MDSNode> NodeObjList
         {
             get { return m_NodeObjList; }
+        }
+
+        public MDSNode TargetNode
+        {
+            get { return m_TargetNode; }
         }
 
         void Awake()
@@ -79,6 +86,8 @@ namespace ARTour
             else
             {
                 newNode = Instantiate(m_EPNodePrefab);
+
+                m_TargetNode = newNode;
             }
 
             newNode.NodeInfo = nodeInfo;
