@@ -71,6 +71,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EPBallNode
       objectReference: {fileID: 0}
+    - target: {fileID: 1086035503494110042, guid: 2d96803581c08494da193bb97342bf0b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6881864452532862702, guid: 2d96803581c08494da193bb97342bf0b,
         type: 3}
       propertyPath: m_LocalPosition.x

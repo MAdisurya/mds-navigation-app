@@ -16,7 +16,7 @@ namespace ARTour
 
         private float maxDistance = 1.1f;
 
-        private int currNodeIndex = 0;
+        private MDSNode currentNode;
 
         private AStar m_AStar = new AStar();
 
@@ -95,45 +95,33 @@ namespace ARTour
                 }
 
                 // Set next nodes
-                for (int i = 0; i < path.Count; i++)
+                for (int i = 0; i < path.Count - 1; i++)
                 {
-                    if ((i + 1) < path.Count)
-                    {
-                        path[i].NextInList = path[i + 1];
-                    }
-
-                    path[i].Activate();
+                    path[i].NextInList = path[i + 1];
                 }
 
                 // Activate the first node
-                // path[0].Activate();
+                path[0].Activate();
                 m_InitStatus = NavInitStatus.COMPLETED;
             }
-        }
-
-        public IEnumerator DelayedStartNavigation(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-
-            StartNavigation();
         }
 
         public void OnTrigger(Collider other)
         {
             if (m_InitStatus == NavInitStatus.COMPLETED && other.GetComponent<MDSNode>() != null)
             {
-                currNodeIndex = path.IndexOf(other.GetComponent<MDSNode>());
+                currentNode = other.GetComponent<MDSNode>();
 
-                if (currNodeIndex < path.Count - 1)
+                if (path.Contains(currentNode))
                 {
-                    if (path[currNodeIndex].NextInList != null)
+                    if (currentNode.NextInList != null)
                     {
                         // Activate the next node
-                        path[currNodeIndex].NextInList.Activate();
+                        currentNode.NextInList.Activate();
                     }
 
                     // Deactivate the current node
-                    // path[currNodeIndex].Deactivate();
+                    // currentNode.Deactivate();
                 }
             }
         }

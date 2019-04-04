@@ -71,6 +71,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WPBallNode
       objectReference: {fileID: 0}
+    - target: {fileID: 6318326343753734546, guid: c9192d2c1886f483f93df5a801eccd2d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6572479088730990576, guid: c9192d2c1886f483f93df5a801eccd2d,
         type: 3}
       propertyPath: m_LocalPosition.x

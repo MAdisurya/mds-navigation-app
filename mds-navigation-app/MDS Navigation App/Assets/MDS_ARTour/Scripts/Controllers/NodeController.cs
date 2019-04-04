@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
@@ -36,6 +37,8 @@ namespace ARTour
 
         private MDSNode m_TargetNode; // Target node for passing into AStar pathfinding algorithm
 
+        private bool _loadCompleted = false;
+
         // Getters
         public List<MDSNode> NodeObjList
         {
@@ -45,6 +48,11 @@ namespace ARTour
         public MDSNode TargetNode
         {
             get { return m_TargetNode; }
+        }
+
+        public bool LoadCompleted
+        {
+            get { return _loadCompleted; }
         }
 
         void Awake()
@@ -68,6 +76,32 @@ namespace ARTour
         public void ChangeSelectedNodeType(int value)
         {
             _selectedNodeType = (MDSNodeType) value;
+        }
+
+        /// <summary>
+        /// Adds a node into the scene
+        /// </summary>
+        public void AddNode(NodeInfo nodeInfo)
+        {
+            MDSNode newNode = m_WPNodePrefab;
+
+            MDSNodeType nodeType = (MDSNodeType) nodeInfo.nodeType;
+
+            if (nodeType == MDSNodeType.WAYPOINT)
+            {
+                newNode = Instantiate(m_WPNodePrefab);
+            }
+            else
+            {
+                newNode = Instantiate(m_EPNodePrefab);
+
+                m_TargetNode = newNode;
+            }
+
+            newNode.NodeInfo = nodeInfo;
+            newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
+
+            m_NodeObjList.Add(newNode);
         }
         
         /// <summary>
@@ -151,6 +185,7 @@ namespace ARTour
             {
                 nodeList.nodes[i] = m_NodeObjList[i].NodeInfo;
             }
+
             return JObject.FromObject(nodeList);
         }     
 
@@ -173,9 +208,9 @@ namespace ARTour
 
                 foreach (NodeInfo nodeInfo in nodeList.nodes)
                 {
-                    AddDeactiveNode(nodeInfo);
+                    AddNode(nodeInfo);
                 }
             }
-        }   
+        }
     }
 }

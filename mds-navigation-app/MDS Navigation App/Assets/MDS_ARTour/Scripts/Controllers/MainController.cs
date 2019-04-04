@@ -104,21 +104,22 @@ namespace ARTour
             {
                 _saveAndLoadController.notificationText.text = "Localized!";
 
+                LibPlacenote.Instance.StopSession();
+
                 if (_saveAndLoadController.DownloadedMetadata != null)
                 {
                     JToken metadata = _saveAndLoadController.DownloadedMetadata.userdata;
 
                     _nodeController.LoadNodesFromJSON(metadata);
+                }
 
-                    try 
-                    {
-                        // _navigationController.StartNavigation();
-                        StartCoroutine(_navigationController.DelayedStartNavigation(4f)); // Not working with delay, still disapearing
-                    }
-                    catch (System.Exception e)
-                    {
-                        Debug.LogException(e);
-                    }
+                try
+                {
+                    _navigationController.StartNavigation();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogException(e);
                 }
             }
         }
