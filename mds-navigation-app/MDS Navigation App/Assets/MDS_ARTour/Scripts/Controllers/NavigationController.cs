@@ -4,10 +4,15 @@ using UnityEngine;
 
 namespace ARTour
 {
+    public enum NavInitStatus
+    {
+        INCOMPLETE,
+        COMPLETED
+    }
+
     public class NavigationController : MonoBehaviour
     {
         private bool _initialized = false;
-        private bool _initializedComplete = false;
 
         private float maxDistance = 1.1f;
 
@@ -16,6 +21,16 @@ namespace ARTour
         private AStar m_AStar = new AStar();
 
         private List<MDSNode> path = new List<MDSNode>();
+
+        private NavInitStatus m_InitStatus = NavInitStatus.INCOMPLETE;
+
+        public Transform _referencePoint;
+
+        // Getters & Setters
+        public NavInitStatus InitStatus
+        {
+            get { return m_InitStatus; }
+        }
 
         public MDSNode ReturnClosestNode(List<MDSNode> nodes, Vector3 point)
         {
@@ -37,7 +52,7 @@ namespace ARTour
             return closestNode;
         }
 
-        private void StartNavigation()
+        public void StartNavigation()
         {
             if (!_initialized)
             {
@@ -49,7 +64,7 @@ namespace ARTour
 
                 Debug.Log("Nodes: " + allNodes.Count);
 
-                MDSNode closestNode = ReturnClosestNode(allNodes, transform.position);
+                MDSNode closestNode = ReturnClosestNode(allNodes, _referencePoint.position);
 
                 Debug.Log("Closest node: " + closestNode.gameObject.name);
 
@@ -63,6 +78,7 @@ namespace ARTour
                     node.FindNeighbors(maxDistance);
                 }
 
+                // Get path from AStar algorithm
                 path = m_AStar.FindPath(closestNode, targetNode, allNodes);
 
                 if (path == null)
@@ -81,25 +97,43 @@ namespace ARTour
                 // Set next nodes
                 for (int i = 0; i < path.Count; i++)
                 {
-                    path[i].NextInList = path[i + 1];
+                    if ((i + 1) < path.Count)
+                    {
+                        path[i].NextInList = path[i + 1];
+                    }
+
+                    path[i].Activate();
                 }
 
                 // Activate the first node
-                path[0].Activate();
-                _initializedComplete = true;
+                // path[0].Activate();
+                m_InitStatus = NavInitStatus.COMPLETED;
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        public IEnumerator DelayedStartNavigation(float delay)
         {
-            if (_initializedComplete && other.gameObject.tag == "Waypoint")
+            yield return new WaitForSeconds(delay);
+
+            StartNavigation();
+        }
+
+        public void OnTrigger(Collider other)
+        {
+            if (m_InitStatus == NavInitStatus.COMPLETED && other.GetComponent<MDSNode>() != null)
             {
                 currNodeIndex = path.IndexOf(other.GetComponent<MDSNode>());
 
                 if (currNodeIndex < path.Count - 1)
                 {
-                    // Activate the next node
-                    path[currNodeIndex].NextInList.Activate();
+                    if (path[currNodeIndex].NextInList != null)
+                    {
+                        // Activate the next node
+                        path[currNodeIndex].NextInList.Activate();
+                    }
+
+                    // Deactivate the current node
+                    // path[currNodeIndex].Deactivate();
                 }
             }
         }

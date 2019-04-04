@@ -18,8 +18,12 @@ namespace ARTour
         // Reference to controllers
         [SerializeField]
         private SaveAndLoadController _saveAndLoadController;
+
         [SerializeField]
         private NodeController _nodeController;
+
+        [SerializeField]
+        private NavigationController _navigationController;
 
         // Getters
         public static MainController Instance
@@ -35,6 +39,11 @@ namespace ARTour
         public NodeController GetNodeController()
         {
             return _nodeController;
+        }
+
+        public NavigationController GetNavigationController()
+        {
+            return _navigationController;
         }
 
         // Private constructor for singleton pattern
@@ -100,6 +109,16 @@ namespace ARTour
                     JToken metadata = _saveAndLoadController.DownloadedMetadata.userdata;
 
                     _nodeController.LoadNodesFromJSON(metadata);
+
+                    try 
+                    {
+                        // _navigationController.StartNavigation();
+                        StartCoroutine(_navigationController.DelayedStartNavigation(4f)); // Not working with delay, still disapearing
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
                 }
             }
         }

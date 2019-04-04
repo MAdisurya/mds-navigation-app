@@ -39,7 +39,7 @@ namespace ARTour
                     nodeInfo.nodeType = (int) m_NodeController._selectedNodeType;
 
                     // Add node to scene, and register in NodeManager
-                    m_NodeController.AddNode(nodeInfo);
+                    m_NodeController.AddActiveNode(nodeInfo);
                 }
             }
 
@@ -114,7 +114,7 @@ namespace ARTour
                     nodeInfo.pz = hitPosition.z;
                     nodeInfo.nodeType = (int) m_NodeController._selectedNodeType;
 
-                    m_NodeController.AddNode(nodeInfo);
+                    m_NodeController.AddActiveNode(nodeInfo);
 
                     return true;
                 }

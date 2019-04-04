@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ARTour
 {
-    public class AStar : MonoBehaviour
+    public class AStar
     {
         /// <summary>
         /// AStar algorithm method that finds a path using start node, target node, and all nodes.

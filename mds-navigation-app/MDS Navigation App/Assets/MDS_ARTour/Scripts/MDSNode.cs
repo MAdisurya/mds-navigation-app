@@ -72,11 +72,6 @@ namespace ARTour
         }
 
         // Methods
-        
-        void Awake()
-        {
-            transform.GetChild(0).gameObject.SetActive(false);
-        }
 
         /// <summary>
         /// Method that finds the closest neighbor (node) to this node

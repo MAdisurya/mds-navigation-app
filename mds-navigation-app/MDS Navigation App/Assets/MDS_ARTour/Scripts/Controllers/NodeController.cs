@@ -25,7 +25,7 @@ namespace ARTour
         public NodeInfo[] nodes;
     }
 
-    public class NodeController: MonoBehaviour
+    public class NodeController : MonoBehaviour
     {   
         public MDSNode m_WPNodePrefab; // Waypoint node prefab
         public MDSNode m_EPNodePrefab; // Endpoint node prefab
@@ -71,13 +71,13 @@ namespace ARTour
         }
         
         /// <summary>
-        /// Adds a node into the scene
+        /// Adds an active node into the scene
         /// </summary>
-        public void AddNode(NodeInfo nodeInfo)
+        public void AddActiveNode(NodeInfo nodeInfo)
         {
             MDSNode newNode = m_WPNodePrefab;
 
-            MDSNodeType nodeType = (MDSNodeType) nodeInfo.nodeType; // Cast stored node type to MDSNodeType enum
+            MDSNodeType nodeType = (MDSNodeType) nodeInfo.nodeType; // Cast stored node typefrom int to MDSNodeType enum
             
             if (nodeType == MDSNodeType.WAYPOINT)
             {
@@ -89,6 +89,35 @@ namespace ARTour
 
                 m_TargetNode = newNode;
             }
+
+            newNode.Activate();
+
+            newNode.NodeInfo = nodeInfo;
+            newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
+
+            m_NodeObjList.Add(newNode);
+        }
+
+        /// <summary>
+        /// Adds a deactivated node into the scene
+        public void AddDeactiveNode(NodeInfo nodeInfo)
+        {
+            MDSNode newNode = m_WPNodePrefab;
+
+            MDSNodeType nodeType = (MDSNodeType) nodeInfo.nodeType; // Cast stored node type from int to MDSNodeType
+
+            if (nodeType == MDSNodeType.WAYPOINT)
+            {
+                newNode = Instantiate(m_WPNodePrefab);
+            }
+            else
+            {
+                newNode = Instantiate(m_EPNodePrefab);
+
+                m_TargetNode = newNode;
+            }
+
+            newNode.Deactivate();
 
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
@@ -144,7 +173,7 @@ namespace ARTour
 
                 foreach (NodeInfo nodeInfo in nodeList.nodes)
                 {
-                    AddNode(nodeInfo);
+                    AddDeactiveNode(nodeInfo);
                 }
             }
         }   
