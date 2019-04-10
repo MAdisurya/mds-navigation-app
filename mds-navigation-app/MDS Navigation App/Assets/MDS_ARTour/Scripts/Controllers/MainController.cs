@@ -106,6 +106,12 @@ namespace ARTour
 
                 LibPlacenote.Instance.StopSession();
 
+                _saveAndLoadController._nodePlacer.CanPlaceNodes = true;
+
+                // Manage UI
+                _saveAndLoadController.saveMapButton.SetActive(true);
+                _saveAndLoadController.newMapButton.SetActive(true);
+
                 if (_saveAndLoadController.DownloadedMetadata != null)
                 {
                     JToken metadata = _saveAndLoadController.DownloadedMetadata.userdata;

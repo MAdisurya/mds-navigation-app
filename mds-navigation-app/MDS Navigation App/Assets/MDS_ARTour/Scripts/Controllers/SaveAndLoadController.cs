@@ -17,6 +17,8 @@ namespace ARTour
         public GameObject loadMapButton;
         public Text notificationText;
 
+        public NodePlacer _nodePlacer;
+
         // Holds the last saved map ID
         private string m_SavedMapId;
 
@@ -35,6 +37,8 @@ namespace ARTour
             Assert.IsNotNull(saveMapButton);
             Assert.IsNotNull(loadMapButton);
             Assert.IsNotNull(notificationText);
+
+            Assert.IsNotNull(_nodePlacer);
         }
 
         void Start()
@@ -164,9 +168,10 @@ namespace ARTour
                                     
                                     notificationText.text = "Trying to Localize Map: " + m_SavedMapId;
 
+                                    // Disable node placement
+                                    _nodePlacer.CanPlaceNodes = false;
+
                                     // Manage UI
-                                    saveMapButton.SetActive(true);
-                                    newMapButton.SetActive(true);
                                     loadMapButton.SetActive(false);
                                 }
                                 else

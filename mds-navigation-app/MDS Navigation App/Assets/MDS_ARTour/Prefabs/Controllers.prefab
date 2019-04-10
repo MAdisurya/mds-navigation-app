@@ -171,6 +171,7 @@ MonoBehaviour:
   saveMapButton: {fileID: 0}
   loadMapButton: {fileID: 0}
   notificationText: {fileID: 0}
+  _nodePlacer: {fileID: 0}
 --- !u!1 &8312632837977981976
 GameObject:
   m_ObjectHideFlags: 0
