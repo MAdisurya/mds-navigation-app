@@ -22,6 +22,8 @@ namespace ARTour
         // Holds the last saved map ID
         private string m_SavedMapId;
 
+        private bool isLoaded = false;
+
         private LibPlacenote.MapMetadata m_DownloadedMetadata;
 
         // Getters
@@ -79,12 +81,15 @@ namespace ARTour
             LibPlacenote.Instance.SaveMap(
                 (mapId) =>
                 {
-                    m_SavedMapId = mapId;
+                    if (!isLoaded)
+                    {
+                        m_SavedMapId = mapId;
 
-                    LibPlacenote.Instance.StopSession();
-                    FeaturesVisualizer.clearPointcloud();
+                        LibPlacenote.Instance.StopSession();
+                        FeaturesVisualizer.clearPointcloud();
 
-                    WriteMapIDToFile(mapId);
+                        WriteMapIDToFile(mapId);
+                    }
                 },
                 (completed, faulted, percentage) =>
                 {
@@ -144,6 +149,11 @@ namespace ARTour
                 return;
             }
 
+            notificationText.text = "Loading map...";
+
+            // Disable node placement
+            _nodePlacer.CanPlaceNodes = false;
+
             newMapButton.SetActive(false);
             saveMapButton.SetActive(false);
 
@@ -168,11 +178,10 @@ namespace ARTour
                                     
                                     notificationText.text = "Trying to Localize Map: " + m_SavedMapId;
 
-                                    // Disable node placement
-                                    _nodePlacer.CanPlaceNodes = false;
-
                                     // Manage UI
                                     loadMapButton.SetActive(false);
+
+                                    isLoaded = true;
                                 }
                                 else
                                 {

@@ -12,8 +12,6 @@ namespace ARTour
 
     public class NavigationController : MonoBehaviour
     {
-        private bool _initialized = false;
-
         private float maxDistance = 1.1f;
 
         private MDSNode currentNode;
@@ -30,6 +28,7 @@ namespace ARTour
         public NavInitStatus InitStatus
         {
             get { return m_InitStatus; }
+            set { m_InitStatus = value; }
         }
 
         public MDSNode ReturnClosestNode(List<MDSNode> nodes, Vector3 point)
@@ -54,10 +53,8 @@ namespace ARTour
 
         public void StartNavigation()
         {
-            if (!_initialized)
+            if (m_InitStatus == NavInitStatus.INCOMPLETE)
             {
-                _initialized = true;
-
                 Debug.Log("Starting Navigation!");
 
                 List<MDSNode> allNodes = MainController.Instance.GetNodeController().NodeObjList;
@@ -85,7 +82,6 @@ namespace ARTour
                 {
                     // Increase search distance for neighbors if none are found
                     maxDistance += .1f;
-                    _initialized = false;
 
                     Debug.Log("Increasing search distance to: " + maxDistance);
 

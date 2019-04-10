@@ -121,6 +121,7 @@ namespace ARTour
 
                 try
                 {
+                    _navigationController.InitStatus = NavInitStatus.INCOMPLETE;
                     _navigationController.StartNavigation();
                 }
                 catch (System.Exception e)
