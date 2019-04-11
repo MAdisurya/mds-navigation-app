@@ -18,6 +18,8 @@ namespace ARTour
     public class MDSNode : MonoBehaviour
     {
         public List<MDSNode> neighbors = new List<MDSNode>();
+
+        public MDSNodeInput inputBehaviour;
         
         private float m_HCost;
         private float m_GCost;

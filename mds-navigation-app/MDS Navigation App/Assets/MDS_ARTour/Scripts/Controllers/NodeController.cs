@@ -18,6 +18,8 @@ namespace ARTour
         public float pz; // position.z
 
         public int nodeType; // mds node type stored using its raw value - int
+
+        public string name = "node"; // the name of the node - defaults to "node"
     }
 
     [System.Serializable]
@@ -79,6 +81,20 @@ namespace ARTour
         }
 
         /// <summary>
+        /// Helper function that sets the passed nodes name
+        /// </summary>
+        public void SetNodeName(MDSNode node, string name)
+        {
+            if (name.Length <= 0)
+            {
+                MainController.Instance.GetSaveAndLoadController().notificationText.text = "Please enter something in the text field!";
+                return;
+            }
+
+            node.NodeInfo.name = name;
+        }
+
+        /// <summary>
         /// Adds a node into the scene
         /// </summary>
         public void AddNode(NodeInfo nodeInfo)
@@ -100,6 +116,11 @@ namespace ARTour
 
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
+
+            if (newNode.inputBehaviour != null)
+            {
+                newNode.inputBehaviour.SetInputText(nodeInfo.name);
+            }
 
             m_NodeObjList.Add(newNode);
         }
@@ -129,6 +150,11 @@ namespace ARTour
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
 
+            if (newNode.inputBehaviour != null)
+            {
+                newNode.inputBehaviour.SetInputText(nodeInfo.name);
+            }
+
             m_NodeObjList.Add(newNode);
         }
 
@@ -155,6 +181,11 @@ namespace ARTour
 
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
+
+            if (newNode.inputBehaviour != null)
+            {
+                newNode.inputBehaviour.SetInputText(nodeInfo.name);
+            }
 
             m_NodeObjList.Add(newNode);
         }
