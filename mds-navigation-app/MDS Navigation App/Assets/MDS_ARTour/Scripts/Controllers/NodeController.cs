@@ -145,10 +145,10 @@ namespace ARTour
                 m_TargetNode = newNode;
             }
 
-            newNode.Activate();
-
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
+
+            newNode.Activate();
 
             if (newNode.inputBehaviour != null)
             {

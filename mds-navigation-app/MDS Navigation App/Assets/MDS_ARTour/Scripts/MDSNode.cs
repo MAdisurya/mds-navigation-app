@@ -102,15 +102,11 @@ namespace ARTour
         {
             transform.GetChild(0).gameObject.SetActive(true);
 
-            if ((MDSNodeType) m_NodeInfo.nodeType == MDSNodeType.ENDPOINT)
+            if ((MDSNodeType) m_NodeInfo.nodeType == MDSNodeType.ENDPOINT && m_Parent != null)
             {
-                if (m_Parent != null)
-                {
-                    transform.LookAt(m_Parent.transform);
-                }
-            }
-
-            if (NextInList != null)
+                transform.LookAt(m_Parent.transform);
+            } 
+            else if (NextInList != null)
             {
                 transform.LookAt(NextInList.transform);
             }
