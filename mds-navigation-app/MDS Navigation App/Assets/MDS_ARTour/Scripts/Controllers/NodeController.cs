@@ -231,6 +231,8 @@ namespace ARTour
             }
 
             m_NodeObjList.Clear();
+            m_TargetNodeObjList.Clear();
+            m_ActiveNodeObjList.Clear();
         }
 
         /// <summary>
