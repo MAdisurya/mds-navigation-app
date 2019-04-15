@@ -102,6 +102,8 @@ namespace ARTour
         {
             transform.GetChild(0).gameObject.SetActive(true);
 
+            MainController.Instance.GetNodeController().ActiveNodeObjList.Add(this);
+
             if ((MDSNodeType) m_NodeInfo.nodeType == MDSNodeType.ENDPOINT && m_Parent != null)
             {
                 transform.LookAt(m_Parent.transform);

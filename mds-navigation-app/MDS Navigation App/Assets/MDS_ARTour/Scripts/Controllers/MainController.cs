@@ -122,8 +122,10 @@ namespace ARTour
 
                 try
                 {
+                    int pTargetOption = _saveAndLoadController.locationDropdown.value;
+
                     _navigationController.InitStatus = NavInitStatus.INCOMPLETE;
-                    _navigationController.StartNavigation();
+                    _navigationController.NavigateToTarget(pTargetOption);
                 }
                 catch (System.Exception e)
                 {

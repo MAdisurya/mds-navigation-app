@@ -134,7 +134,7 @@ namespace ARTour
             MainController.Instance.GetNodeController().TargetNode = 
                 MainController.Instance.GetNodeController().TargetNodeObjList[targetIndex];
 
-            Debug.Log("New target is: " + MainController.Instance.GetNodeController().TargetNode.NodeInfo.name);
+            MainController.Instance.GetNodeController().DeactivateNodes();
 
             try
             {

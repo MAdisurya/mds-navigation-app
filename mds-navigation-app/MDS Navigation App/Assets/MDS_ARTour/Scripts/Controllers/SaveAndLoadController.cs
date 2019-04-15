@@ -63,6 +63,7 @@ namespace ARTour
             newMapButton.SetActive(false);
             loadMapButton.SetActive(false);
             saveMapButton.SetActive(true);
+            locationDropdown.gameObject.SetActive(false);
 
             // Start the LibPlacenote session
             LibPlacenote.Instance.StartSession();
@@ -82,6 +83,7 @@ namespace ARTour
             newMapButton.SetActive(true);
             loadMapButton.SetActive(true);
             saveMapButton.SetActive(false);
+            locationDropdown.gameObject.SetActive(false);
 
             LibPlacenote.Instance.SaveMap(
                 (mapId) =>

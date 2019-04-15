@@ -37,6 +37,8 @@ namespace ARTour
 
         private List<MDSNode> m_NodeObjList = new List<MDSNode>();
 
+        private List<MDSNode> m_ActiveNodeObjList = new List<MDSNode>();
+
         private List<MDSNode> m_TargetNodeObjList = new List<MDSNode>();
 
         private MDSNode m_TargetNode; // Target node for passing into AStar pathfinding algorithm
@@ -47,6 +49,11 @@ namespace ARTour
         public List<MDSNode> NodeObjList
         {
             get { return m_NodeObjList; }
+        }
+
+        public List<MDSNode> ActiveNodeObjList
+        {
+            get { return m_ActiveNodeObjList; }
         }
 
         public List<MDSNode> TargetNodeObjList
@@ -224,6 +231,19 @@ namespace ARTour
             }
 
             m_NodeObjList.Clear();
+        }
+
+        /// <summary>
+        /// Helper method that deactivates all current active nodes
+        /// </summary>
+        public void DeactivateNodes()
+        {
+            foreach (MDSNode obj in m_ActiveNodeObjList)
+            {
+                obj.Deactivate();
+            }
+
+            m_ActiveNodeObjList.Clear();
         }
 
         /// <summary>
