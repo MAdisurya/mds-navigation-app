@@ -37,6 +37,8 @@ namespace ARTour
 
         private List<MDSNode> m_NodeObjList = new List<MDSNode>();
 
+        private List<MDSNode> m_TargetNodeObjList = new List<MDSNode>();
+
         private MDSNode m_TargetNode; // Target node for passing into AStar pathfinding algorithm
 
         private bool _loadCompleted = false;
@@ -47,9 +49,15 @@ namespace ARTour
             get { return m_NodeObjList; }
         }
 
+        public List<MDSNode> TargetNodeObjList
+        {
+            get { return m_TargetNodeObjList; }
+        }
+
         public MDSNode TargetNode
         {
             get { return m_TargetNode; }
+            set { m_TargetNode = value; }
         }
 
         public bool LoadCompleted
@@ -123,6 +131,11 @@ namespace ARTour
             }
 
             m_NodeObjList.Add(newNode);
+
+            if (nodeType == MDSNodeType.ENDPOINT)
+            {
+                m_TargetNodeObjList.Add(newNode);
+            }
         }
         
         /// <summary>
@@ -156,6 +169,11 @@ namespace ARTour
             }
 
             m_NodeObjList.Add(newNode);
+
+            if (nodeType == MDSNodeType.ENDPOINT)
+            {
+                m_TargetNodeObjList.Add(newNode);
+            }
         }
 
         /// <summary>
@@ -188,6 +206,11 @@ namespace ARTour
             }
 
             m_NodeObjList.Add(newNode);
+
+            if (nodeType == MDSNodeType.ENDPOINT)
+            {
+                m_TargetNodeObjList.Add(newNode);
+            }
         }
 
         /// <summary>
@@ -237,12 +260,13 @@ namespace ARTour
                     return;
                 }
 
-                MainController.Instance.GetSaveAndLoadController().LoadTargetNames(nodeList);
-
                 foreach (NodeInfo nodeInfo in nodeList.nodes)
                 {
                     AddNode(nodeInfo);
                 }
+
+                // Call LoadTargetNames() after Adding all the nodes into memory!
+                MainController.Instance.GetSaveAndLoadController().LoadTargetNames(m_TargetNodeObjList);
             }
         }
     }

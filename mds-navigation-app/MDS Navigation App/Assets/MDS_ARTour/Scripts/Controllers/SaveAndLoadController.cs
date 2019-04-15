@@ -211,15 +211,15 @@ namespace ARTour
         /// <summary>
         /// Handles loading and storing of the target endpoint nodes names from the node list into memory for re-navigation
         /// </summary>
-        public void LoadTargetNames(NodeList nodeList)
+        public void LoadTargetNames(List<MDSNode> targetNodes)
         {
             List<string> targetNames = new List<string>();
 
-            foreach (NodeInfo nodeInfo in nodeList.nodes)
+            foreach (MDSNode targetNode in targetNodes)
             {
-                if ((MDSNodeType) nodeInfo.nodeType == MDSNodeType.ENDPOINT)
+                if ((MDSNodeType) targetNode.NodeInfo.nodeType == MDSNodeType.ENDPOINT)
                 {
-                    targetNames.Add(nodeInfo.name);
+                    targetNames.Add(targetNode.NodeInfo.name);
                 }
             }
 

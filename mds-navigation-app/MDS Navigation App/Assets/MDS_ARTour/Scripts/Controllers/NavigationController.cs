@@ -67,7 +67,7 @@ namespace ARTour
 
                 MDSNode targetNode = MainController.Instance.GetNodeController().TargetNode;
 
-                Debug.Log("Target node: " + targetNode.gameObject.name);
+                Debug.Log("Target node: " + targetNode.NodeInfo.name);
 
                 // Set neighbor nodes for all nodes
                 foreach (MDSNode node in allNodes)
@@ -99,6 +99,50 @@ namespace ARTour
                 // Activate the first node
                 path[0].Activate();
                 m_InitStatus = NavInitStatus.COMPLETED;
+            }
+        }
+
+        /// <summary>
+        /// Method that handles re-navigation to a new target using the target name
+        /// </summary>
+        public void NavigateToTarget(string targetName)
+        {
+            foreach (MDSNode target in MainController.Instance.GetNodeController().TargetNodeObjList)
+            {
+                if (targetName == target.NodeInfo.name)
+                {
+                    MainController.Instance.GetNodeController().TargetNode = target;
+                }
+            }
+
+            try
+            {
+                m_InitStatus = NavInitStatus.INCOMPLETE;
+                StartNavigation();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
+
+        /// <summary>
+        /// Overloaded NavigateToTarget ethod that handles re-navigation to a new target using int
+        /// </summary>
+        public void NavigateToTarget(int targetIndex)
+        {
+            MDSNode pTarget = MainController.Instance.GetNodeController().TargetNode;
+
+            pTarget = MainController.Instance.GetNodeController().TargetNodeObjList[targetIndex];
+
+            try
+            {
+                m_InitStatus = NavInitStatus.INCOMPLETE;
+                StartNavigation();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
             }
         }
 
