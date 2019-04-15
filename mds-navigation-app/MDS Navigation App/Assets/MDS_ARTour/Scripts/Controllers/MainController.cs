@@ -111,6 +111,7 @@ namespace ARTour
                 // Manage UI
                 _saveAndLoadController.saveMapButton.SetActive(true);
                 _saveAndLoadController.newMapButton.SetActive(true);
+                _saveAndLoadController.locationDropdown.gameObject.SetActive(true);
 
                 if (_saveAndLoadController.DownloadedMetadata != null)
                 {

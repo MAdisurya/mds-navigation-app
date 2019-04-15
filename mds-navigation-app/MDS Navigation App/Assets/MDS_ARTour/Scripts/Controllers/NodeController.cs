@@ -237,6 +237,8 @@ namespace ARTour
                     return;
                 }
 
+                MainController.Instance.GetSaveAndLoadController().LoadTargetNames(nodeList);
+
                 foreach (NodeInfo nodeInfo in nodeList.nodes)
                 {
                     AddNode(nodeInfo);

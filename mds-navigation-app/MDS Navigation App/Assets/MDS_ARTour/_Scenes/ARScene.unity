@@ -3460,6 +3460,11 @@ PrefabInstance:
       objectReference: {fileID: 1637540351}
     - target: {fileID: 6816733083508429767, guid: f8787863fb2f24906aef031d3d56d9d5,
         type: 3}
+      propertyPath: locationDropdown
+      value: 
+      objectReference: {fileID: 1693966213}
+    - target: {fileID: 6816733083508429767, guid: f8787863fb2f24906aef031d3d56d9d5,
+        type: 3}
       propertyPath: _nodePlacer
       value: 
       objectReference: {fileID: 1070254153}

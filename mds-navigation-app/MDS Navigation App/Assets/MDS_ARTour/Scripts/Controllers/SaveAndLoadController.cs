@@ -16,6 +16,7 @@ namespace ARTour
         public GameObject saveMapButton;
         public GameObject loadMapButton;
         public Text notificationText;
+        public Dropdown locationDropdown;
 
         public NodePlacer _nodePlacer;
 
@@ -39,6 +40,7 @@ namespace ARTour
             Assert.IsNotNull(saveMapButton);
             Assert.IsNotNull(loadMapButton);
             Assert.IsNotNull(notificationText);
+            Assert.IsNotNull(locationDropdown);
 
             Assert.IsNotNull(_nodePlacer);
         }
@@ -46,6 +48,9 @@ namespace ARTour
         void Start()
         {
             saveMapButton.SetActive(false);
+            locationDropdown.gameObject.SetActive(false);
+
+            locationDropdown.ClearOptions();
         }
         
         /// <summary>
@@ -201,6 +206,24 @@ namespace ARTour
                     }
                 }
             );
+        }
+
+        /// <summary>
+        /// Handles loading and storing of the target endpoint nodes names from the node list into memory for re-navigation
+        /// </summary>
+        public void LoadTargetNames(NodeList nodeList)
+        {
+            List<string> targetNames = new List<string>();
+
+            foreach (NodeInfo nodeInfo in nodeList.nodes)
+            {
+                if ((MDSNodeType) nodeInfo.nodeType == MDSNodeType.ENDPOINT)
+                {
+                    targetNames.Add(nodeInfo.name);
+                }
+            }
+
+            locationDropdown.AddOptions(targetNames);
         }
 
         /// <summary>
