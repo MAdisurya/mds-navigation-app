@@ -187,6 +187,7 @@ namespace ARTour
 
                                     // Manage UI
                                     loadMapButton.SetActive(false);
+                                    locationDropdown.ClearOptions();
 
                                     isLoaded = true;
                                 }
