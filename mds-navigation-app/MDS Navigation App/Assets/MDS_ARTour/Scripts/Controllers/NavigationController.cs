@@ -127,13 +127,14 @@ namespace ARTour
         }
 
         /// <summary>
-        /// Overloaded NavigateToTarget ethod that handles re-navigation to a new target using int
+        /// Overloaded NavigateToTarget method that handles re-navigation to a new target using int
         /// </summary>
         public void NavigateToTarget(int targetIndex)
         {
-            MDSNode pTarget = MainController.Instance.GetNodeController().TargetNode;
+            MainController.Instance.GetNodeController().TargetNode = 
+                MainController.Instance.GetNodeController().TargetNodeObjList[targetIndex];
 
-            pTarget = MainController.Instance.GetNodeController().TargetNodeObjList[targetIndex];
+            Debug.Log("New target is: " + MainController.Instance.GetNodeController().TargetNode.NodeInfo.name);
 
             try
             {
