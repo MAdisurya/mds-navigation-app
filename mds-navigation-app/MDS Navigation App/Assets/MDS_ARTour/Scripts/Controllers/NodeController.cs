@@ -45,6 +45,8 @@ namespace ARTour
 
         private bool _loadCompleted = false;
 
+        private bool _eraseMode = false;
+
         // Getters
         public List<MDSNode> NodeObjList
         {
@@ -70,6 +72,11 @@ namespace ARTour
         public bool LoadCompleted
         {
             get { return _loadCompleted; }
+        }
+
+        public bool EraseMode
+        {
+            get { return _eraseMode; }
         }
 
         void Awake()
@@ -107,6 +114,14 @@ namespace ARTour
             }
 
             node.NodeInfo.name = name;
+        }
+
+        /// <summary>
+        /// Helper method that toggles eraser mode
+        /// </summary>
+        public void ToggleEraserMode(bool toggle)
+        {
+            _eraseMode = toggle;
         }
 
         /// <summary>
@@ -233,6 +248,27 @@ namespace ARTour
             m_NodeObjList.Clear();
             m_TargetNodeObjList.Clear();
             m_ActiveNodeObjList.Clear();
+        }
+
+        /// <summary>
+        /// Clears the passed node object from memory
+        /// </summary>
+        public void ClearNode(MDSNode node)
+        {
+            if (node == null)
+            {
+                Debug.Log("Cannot clear node as node is null");
+                return;
+            }
+
+            m_NodeObjList.Remove(node);
+            
+            if ((MDSNodeType) node.NodeInfo.nodeType == MDSNodeType.ENDPOINT)
+            {
+                m_TargetNodeObjList.Remove(node);
+            }
+
+            Destroy(node.gameObject);
         }
 
         /// <summary>
