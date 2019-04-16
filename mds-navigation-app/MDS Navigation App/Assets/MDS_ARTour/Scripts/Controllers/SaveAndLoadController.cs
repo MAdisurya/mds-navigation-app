@@ -17,11 +17,14 @@ namespace ARTour
         public GameObject loadMapButton;
         public Text notificationText;
         public Dropdown locationDropdown;
+        public ListView mapListView;
 
         public NodePlacer _nodePlacer;
 
         // Holds the last saved map ID
         private string m_SavedMapId;
+
+        private List<string> m_MapListNames = new List<string>();
 
         private bool isLoaded = false;
 
@@ -41,6 +44,7 @@ namespace ARTour
             Assert.IsNotNull(loadMapButton);
             Assert.IsNotNull(notificationText);
             Assert.IsNotNull(locationDropdown);
+            Assert.IsNotNull(mapListView);
 
             Assert.IsNotNull(_nodePlacer);
         }
@@ -49,6 +53,7 @@ namespace ARTour
         {
             saveMapButton.SetActive(false);
             locationDropdown.gameObject.SetActive(false);
+            mapListView.gameObject.SetActive(false);
 
             locationDropdown.ClearOptions();
         }
@@ -67,6 +72,34 @@ namespace ARTour
 
             // Start the LibPlacenote session
             LibPlacenote.Instance.StartSession();
+        }
+
+        /// <summary>
+        /// Handles loading of the map list
+        /// </summary>
+        public void LoadMapList()
+        {
+            if (!LibPlacenote.Instance.Initialized())
+            {
+                notificationText.text = "SDK has not initialized yet!";
+                return;
+            }
+
+            m_MapListNames.Clear();
+
+            mapListView.gameObject.SetActive(true);
+
+            LibPlacenote.Instance.ListMaps(
+                (mapList) =>
+                {
+                    foreach (LibPlacenote.MapInfo mapInfoItem in mapList)
+                    {
+                        m_MapListNames.Add(mapInfoItem.placeId);
+
+                        mapListView.AddItem(mapInfoItem.placeId);
+                    }
+                }
+            );
         }
 
         /// <summary>
@@ -148,7 +181,9 @@ namespace ARTour
             }
 
             // Read saved map Id from file
-            m_SavedMapId = ReadMapIDFromFile();
+            // m_SavedMapId = ReadMapIDFromFile();
+            m_SavedMapId = mapListView.CurrentMapId;
+            Debug.Log(mapListView.CurrentMapId);
 
             if (m_SavedMapId == null)
             {
@@ -161,8 +196,10 @@ namespace ARTour
             // Disable node placement
             _nodePlacer.CanPlaceNodes = false;
 
+            // Manage UI
             newMapButton.SetActive(false);
             saveMapButton.SetActive(false);
+            mapListView.gameObject.SetActive(false);
 
             LibPlacenote.Instance.LoadMap(
                 m_SavedMapId,
@@ -209,6 +246,26 @@ namespace ARTour
                     }
                 }
             );
+        }
+
+        /// <summary>
+        /// LoadMap() overload handles loading a map using string mapID
+        /// </summary>
+        public void LoadMap(string mapId)
+        {
+            m_SavedMapId = mapId;
+
+            LoadMap();
+        }
+
+        /// <summary>
+        /// LoadMap() overload handles loading a map using int id index
+        /// </summary>
+        public void LoadMap(int mapIndex)
+        {
+            m_SavedMapId = m_MapListNames[mapIndex];
+
+            LoadMap();
         }
 
         /// <summary>

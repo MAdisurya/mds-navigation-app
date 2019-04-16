@@ -172,6 +172,7 @@ MonoBehaviour:
   loadMapButton: {fileID: 0}
   notificationText: {fileID: 0}
   locationDropdown: {fileID: 0}
+  mapListView: {fileID: 0}
   _nodePlacer: {fileID: 0}
 --- !u!1 &8312632837977981976
 GameObject:
