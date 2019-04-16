@@ -87,6 +87,7 @@ namespace ARTour
 
             m_MapListNames.Clear();
 
+            mapListView.ClearItems();
             mapListView.gameObject.SetActive(true);
 
             LibPlacenote.Instance.ListMaps(
@@ -183,7 +184,6 @@ namespace ARTour
             // Read saved map Id from file
             // m_SavedMapId = ReadMapIDFromFile();
             m_SavedMapId = mapListView.CurrentMapId;
-            Debug.Log(mapListView.CurrentMapId);
 
             if (m_SavedMapId == null)
             {

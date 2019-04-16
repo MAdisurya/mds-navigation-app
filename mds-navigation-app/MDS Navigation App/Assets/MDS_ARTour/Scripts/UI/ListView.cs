@@ -31,5 +31,16 @@ namespace ARTour
             newItem.itemLabel.text = itemName;
             newItem.transform.parent = listContent.transform;
         }
+
+        /// <summary>
+        /// Handles clearing of all list items inside the list view content
+        /// </summary>
+        public void ClearItems()
+        {
+            for (int i = 0; i < listContent.transform.childCount; i++)
+            {
+                Destroy(listContent.transform.GetChild(i).gameObject);
+            }
+        }
     }
 }
