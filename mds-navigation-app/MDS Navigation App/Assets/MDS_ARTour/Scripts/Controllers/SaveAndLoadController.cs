@@ -122,15 +122,17 @@ namespace ARTour
             LibPlacenote.Instance.SaveMap(
                 (mapId) =>
                 {
-                    if (!isLoaded)
+                    if (isLoaded)
                     {
-                        m_SavedMapId = mapId;
-
-                        LibPlacenote.Instance.StopSession();
-                        FeaturesVisualizer.clearPointcloud();
-
-                        WriteMapIDToFile(mapId);
+                        DeleteMap(m_SavedMapId);
                     }
+
+                    m_SavedMapId = mapId;
+
+                    WriteMapIDToFile(mapId);
+
+                    LibPlacenote.Instance.StopSession();
+                    FeaturesVisualizer.clearPointcloud();
                 },
                 (completed, faulted, percentage) =>
                 {
@@ -266,6 +268,32 @@ namespace ARTour
             m_SavedMapId = m_MapListNames[mapIndex];
 
             LoadMap();
+        }
+
+        /// <summary>
+        /// Helper method that handles deleting of maps from the cloud
+        /// </summary>
+        public void DeleteMap(string mapID)
+        {
+            if (!LibPlacenote.Instance.Initialized())
+            {
+                notificationText.text = "SDK has not initialized yet!";
+                return;
+            }
+
+            LibPlacenote.Instance.DeleteMap(
+                mapID, 
+                (deleted, errMsg) =>
+                {
+                    if (deleted)
+                    {
+                        notificationText.text = "Map: " + mapID + " successfully deleted.";
+                    }
+                    else
+                    {
+                        notificationText.text = "Failed to delete map: " + errMsg;
+                    }
+                });
         }
 
         /// <summary>
