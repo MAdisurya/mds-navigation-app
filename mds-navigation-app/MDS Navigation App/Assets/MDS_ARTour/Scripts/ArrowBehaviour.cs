@@ -6,7 +6,7 @@ namespace ARTour
 {
     public class ArrowBehaviour : MonoBehaviour
     {
-        public int _defaultRotation = 0;    // The default rotation of the arrow sprite
+        public float _defaultRotation = 0f;    // The default rotation of the arrow sprite
 
         void Update()
         {
@@ -18,9 +18,17 @@ namespace ARTour
 
         private void LookAt(Transform target)
         {
-            Vector2 targetVPPos = Camera.main.WorldToViewportPoint(target.position);
+            Vector3 targetVPPos = Camera.main.WorldToScreenPoint(target.position);
 
-            float angle = Mathf.Atan2(targetVPPos.y, targetVPPos.x) * 90;
+            if (targetVPPos.z < Camera.main.nearClipPlane)
+            {
+                // Handles situation where object is behind the camera
+                // Need to use this as rotation is not handled well when object behind camera
+            }
+
+            float angle = Mathf.Atan2(targetVPPos.y, targetVPPos.x) * 90.0f;
+
+            Debug.Log("angle is: " + angle);
 
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
