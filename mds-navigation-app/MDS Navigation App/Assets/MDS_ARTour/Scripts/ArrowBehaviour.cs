@@ -16,21 +16,16 @@ namespace ARTour
             }
         }
 
+        /// <summary>
+        /// Takes in a transform, and calculates the angle for arrow to look at target position
+        /// </summary>
         private void LookAt(Transform target)
         {
-            Vector3 targetVPPos = Camera.main.WorldToScreenPoint(target.position);
+            Vector3 targetPos = Camera.main.transform.InverseTransformPoint(target.position);
 
-            if (targetVPPos.z < Camera.main.nearClipPlane)
-            {
-                // Handles situation where object is behind the camera
-                // Need to use this as rotation is not handled well when object behind camera
-            }
+            float targetAngle = -Mathf.Atan2(targetPos.x, targetPos.z) * Mathf.Rad2Deg + _defaultRotation;
 
-            float angle = Mathf.Atan2(targetVPPos.y, targetVPPos.x) * 90.0f;
-
-            Debug.Log("angle is: " + angle);
-
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            transform.eulerAngles = new Vector3(0, 0, targetAngle);
         }
     }
 }
