@@ -120,16 +120,25 @@ namespace ARTour
                     _nodeController.LoadNodesFromJSON(metadata);
                 }
 
-                try
+                if (_navigationController == null)
                 {
                     int pTargetOption = _saveAndLoadController.locationDropdown.value;
 
-                    _navigationController.InitStatus = NavInitStatus.INCOMPLETE;
-                    _navigationController.NavigateToTarget(pTargetOption);
+                    _nodeController.SetTargetNode(pTargetOption);
                 }
-                catch (System.Exception e)
+                else
                 {
-                    Debug.LogException(e);
+                    try
+                    {
+                        int pTargetOption = _saveAndLoadController.locationDropdown.value;
+
+                        _navigationController.InitStatus = NavInitStatus.INCOMPLETE;
+                        _navigationController.NavigateToTarget(pTargetOption);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
                 }
             }
         }

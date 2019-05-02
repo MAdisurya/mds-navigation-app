@@ -16,7 +16,17 @@ namespace ARTour
                 }
             }
 
-            MainController.Instance.GetNavigationController().OnTrigger(other);
+            if (MainController.Instance.GetNavigationController() != null)
+            {
+                MainController.Instance.GetNavigationController().OnTrigger(other);
+            }
+            else
+            {
+                if (other.GetComponent<MDSNode>() != null)
+                {
+                    other.GetComponent<MDSNode>().Activate();
+                }
+            }
         }
     }
 }
