@@ -12,14 +12,10 @@ namespace ARTour
     public class SaveAndLoadController : MonoBehaviour
     {
         // UI GameObject references
-        public GameObject newMapButton;
-        public GameObject saveMapButton;
         public GameObject loadMapButton;
         public Text notificationText;
         public Dropdown locationDropdown;
         public ListView mapListView;
-
-        public NodePlacer _nodePlacer;
 
         // Holds the last saved map ID
         private string m_SavedMapId;
@@ -39,21 +35,16 @@ namespace ARTour
         void Awake()
         {
             // Handle Assertions if references are null
-            Assert.IsNotNull(newMapButton);
-            Assert.IsNotNull(saveMapButton);
             Assert.IsNotNull(loadMapButton);
             Assert.IsNotNull(notificationText);
             Assert.IsNotNull(locationDropdown);
             Assert.IsNotNull(mapListView);
-
-            Assert.IsNotNull(_nodePlacer);
         }
 
         void Start()
         {
-            saveMapButton.SetActive(false);
-            locationDropdown.gameObject.SetActive(false);
-            mapListView.gameObject.SetActive(false);
+            ActivateLocationDropdown(false);
+            ActivateMapList(false);
 
             locationDropdown.ClearOptions();
         }
@@ -61,14 +52,12 @@ namespace ARTour
         /// <summary>
         /// Handles new map clicked event
         /// </summary>
-        public void OnNewMapClick()
+        public virtual void OnNewMapClick()
         {
             notificationText.text = "Scan and click Save Map when complete!";
 
-            newMapButton.SetActive(false);
-            loadMapButton.SetActive(false);
-            saveMapButton.SetActive(true);
-            locationDropdown.gameObject.SetActive(false);
+            ActivateLoadButton(false);
+            ActivateLocationDropdown(false);
 
             // Start the LibPlacenote session
             LibPlacenote.Instance.StartSession();
@@ -77,7 +66,7 @@ namespace ARTour
         /// <summary>
         /// Handles loading of the map list
         /// </summary>
-        public void LoadMapList()
+        public virtual void LoadMapList()
         {
             if (!LibPlacenote.Instance.Initialized())
             {
@@ -88,7 +77,7 @@ namespace ARTour
             m_MapListNames.Clear();
 
             mapListView.ClearItems();
-            mapListView.gameObject.SetActive(true);
+            ActivateMapList(true);
 
             LibPlacenote.Instance.ListMaps(
                 (mapList) =>
@@ -106,7 +95,7 @@ namespace ARTour
         /// <summary>
         /// Handles saving of the Placenote Map, and uploading it to Placenote Cloud
         /// </summary>
-        public void SaveMap()
+        public virtual void SaveMap()
         {
             if (!LibPlacenote.Instance.Initialized())
             {
@@ -114,10 +103,8 @@ namespace ARTour
                 return;
             }
 
-            newMapButton.SetActive(true);
-            loadMapButton.SetActive(true);
-            saveMapButton.SetActive(false);
-            locationDropdown.gameObject.SetActive(false);
+            ActivateLoadButton(true);
+            ActivateLocationDropdown(false);
 
             LibPlacenote.Instance.SaveMap(
                 (mapId) =>
@@ -175,7 +162,7 @@ namespace ARTour
         /// <summary>
         /// Handles loading of the Placenote map from the Placenote Cloud, and relocalizing
         /// </summary>
-        public void LoadMap()
+        public virtual void LoadMap()
         {
             if (!LibPlacenote.Instance.Initialized())
             {
@@ -187,21 +174,16 @@ namespace ARTour
             // m_SavedMapId = ReadMapIDFromFile();
             m_SavedMapId = mapListView.CurrentMapId;
 
-            if (m_SavedMapId == null)
-            {
-                notificationText.text = "You haven't saved a map yet!";
-                return;
-            }
+            // if (m_SavedMapId == null)
+            // {
+            //     notificationText.text = "You haven't saved a map yet!";
+            //     return;
+            // }
 
             notificationText.text = "Loading map...";
 
-            // Disable node placement
-            _nodePlacer.CanPlaceNodes = false;
-
             // Manage UI
-            newMapButton.SetActive(false);
-            saveMapButton.SetActive(false);
-            mapListView.gameObject.SetActive(false);
+            ActivateMapList(false);
 
             LibPlacenote.Instance.LoadMap(
                 m_SavedMapId,
@@ -225,7 +207,7 @@ namespace ARTour
                                     notificationText.text = "Trying to Localize Map: " + m_SavedMapId;
 
                                     // Manage UI
-                                    loadMapButton.SetActive(false);
+                                    ActivateLoadButton(false);
                                     locationDropdown.ClearOptions();
 
                                     isLoaded = true;
@@ -273,7 +255,7 @@ namespace ARTour
         /// <summary>
         /// Helper method that handles deleting of maps from the cloud
         /// </summary>
-        public void DeleteMap(string mapID)
+        public virtual void DeleteMap(string mapID)
         {
             if (!LibPlacenote.Instance.Initialized())
             {
@@ -299,7 +281,7 @@ namespace ARTour
         /// <summary>
         /// Handles loading and storing of the target endpoint nodes names from the node list into memory for re-navigation
         /// </summary>
-        public void LoadTargetNames(List<MDSNode> targetNodes)
+        public virtual void LoadTargetNames(List<MDSNode> targetNodes)
         {
             List<string> targetNames = new List<string>();
 
@@ -315,9 +297,33 @@ namespace ARTour
         }
 
         /// <summary>
+        /// Helper method that sets NodePlacer.CanPlaceNodes
+        /// </summary>
+        public virtual void SetCanPlaceNodes(bool set) {}
+
+        public virtual void ActivateSaveButton(bool set) {}
+
+        public virtual void ActivateLoadButton(bool set) 
+        {
+            loadMapButton.SetActive(set);
+        }
+
+        public virtual void ActivateNewButton(bool set) {}
+
+        public virtual void ActivateLocationDropdown(bool set) 
+        {
+            locationDropdown.gameObject.SetActive(set);
+        }
+
+        public virtual void ActivateMapList(bool set)
+        {
+            mapListView.gameObject.SetActive(set);
+        }
+
+        /// <summary>
         /// Handles writing the map id into a file so it can be retrieved later
         /// </summary>
-        private void WriteMapIDToFile(string mapId)
+        protected void WriteMapIDToFile(string mapId)
         {
             string path = Application.persistentDataPath + "/mapId.txt";
             Debug.Log(path);
@@ -330,7 +336,7 @@ namespace ARTour
         /// <summary>
         /// Returns a string with the map Id that was saved into the file
         /// </summary>
-        private string ReadMapIDFromFile()
+        protected string ReadMapIDFromFile()
         {
             string path = Application.persistentDataPath + "/mapId.txt";
             Debug.Log(path);
@@ -351,7 +357,7 @@ namespace ARTour
             }
         }
 
-        private LibPlacenote.MapMetadataSettable CreateMetaDataObject()
+        protected LibPlacenote.MapMetadataSettable CreateMetaDataObject()
         {
             LibPlacenote.MapMetadataSettable metadata = new LibPlacenote.MapMetadataSettable();
 

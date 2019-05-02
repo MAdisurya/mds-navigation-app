@@ -106,11 +106,11 @@ namespace ARTour
 
                 LibPlacenote.Instance.StopSession();
 
-                _saveAndLoadController._nodePlacer.CanPlaceNodes = true;
+                _saveAndLoadController.SetCanPlaceNodes(true);
 
                 // Manage UI
-                _saveAndLoadController.saveMapButton.SetActive(true);
-                _saveAndLoadController.newMapButton.SetActive(true);
+                _saveAndLoadController.ActivateSaveButton(true);
+                _saveAndLoadController.ActivateNewButton(true);
                 _saveAndLoadController.locationDropdown.gameObject.SetActive(true);
 
                 if (_saveAndLoadController.DownloadedMetadata != null)

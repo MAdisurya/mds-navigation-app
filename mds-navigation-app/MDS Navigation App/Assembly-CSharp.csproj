@@ -55,6 +55,7 @@
   <ItemGroup>
      <Compile Include="Assets\MDS_ARTour\Scripts\ArrowBehaviour.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\AStar.cs" />
+     <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\EditorSaveAndLoadController.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\MainController.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\NavigationController.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\NodeController.cs" />
