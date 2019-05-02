@@ -131,8 +131,7 @@ namespace ARTour
         /// </summary>
         public void NavigateToTarget(int targetIndex)
         {
-            MainController.Instance.GetNodeController().TargetNode = 
-                MainController.Instance.GetNodeController().TargetNodeObjList[targetIndex];
+            MainController.Instance.GetNodeController().SetTargetNode(targetIndex);
 
             MainController.Instance.GetNodeController().DeactivateNodes();
 

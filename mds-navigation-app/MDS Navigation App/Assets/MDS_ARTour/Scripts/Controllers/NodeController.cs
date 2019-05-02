@@ -117,6 +117,14 @@ namespace ARTour
         }
 
         /// <summary>
+        /// Helper method that sets the target node from the targetNodeObjList using an int
+        /// </summary>
+        public void SetTargetNode(int targetIndex)
+        {
+            m_TargetNode = m_TargetNodeObjList[targetIndex];
+        }
+
+        /// <summary>
         /// Helper method that toggles eraser mode
         /// </summary>
         public void ToggleEraserMode(bool toggle)

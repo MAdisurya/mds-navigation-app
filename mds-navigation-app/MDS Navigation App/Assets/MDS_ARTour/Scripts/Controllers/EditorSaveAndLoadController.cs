@@ -17,15 +17,6 @@ namespace ARTour
 
         public NodePlacer _nodePlacer;
 
-        // Holds the last saved map ID
-        private string m_SavedMapId;
-
-        private List<string> m_MapListNames = new List<string>();
-
-        private bool isLoaded = false;
-
-        private LibPlacenote.MapMetadata m_DownloadedMetadata;
-
         void Awake()
         {
             // Handle Assertions if references are null

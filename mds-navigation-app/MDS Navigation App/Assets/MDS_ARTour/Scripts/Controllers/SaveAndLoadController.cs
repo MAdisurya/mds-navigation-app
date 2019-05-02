@@ -18,13 +18,13 @@ namespace ARTour
         public ListView mapListView;
 
         // Holds the last saved map ID
-        private string m_SavedMapId;
+        protected string m_SavedMapId;
 
-        private List<string> m_MapListNames = new List<string>();
+        protected List<string> m_MapListNames = new List<string>();
 
-        private bool isLoaded = false;
+        protected bool isLoaded = false;
 
-        private LibPlacenote.MapMetadata m_DownloadedMetadata;
+        protected LibPlacenote.MapMetadata m_DownloadedMetadata;
 
         // Getters
         public LibPlacenote.MapMetadata DownloadedMetadata
