@@ -1439,21 +1439,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6045368913092471620, guid: 44be757ba62754b03b38814569d87f24,
-        type: 3}
-      propertyPath: _nodeController
-      value: 
-      objectReference: {fileID: 6045368913921536765}
-    - target: {fileID: 6045368913092471620, guid: 44be757ba62754b03b38814569d87f24,
-        type: 3}
-      propertyPath: _saveAndLoadController
-      value: 
-      objectReference: {fileID: 6045368913030390801}
-    - target: {fileID: 6045368913030390807, guid: 44be757ba62754b03b38814569d87f24,
-        type: 3}
-      propertyPath: m_Name
-      value: SaveAndLoadController
-      objectReference: {fileID: 0}
     - target: {fileID: 6045368913030390801, guid: 44be757ba62754b03b38814569d87f24,
         type: 3}
       propertyPath: loadMapButton
@@ -1474,6 +1459,10 @@ PrefabInstance:
       propertyPath: mapListView
       value: 
       objectReference: {fileID: 385546252}
+    - target: {fileID: 1854280084, guid: 44be757ba62754b03b38814569d87f24, type: 3}
+      propertyPath: arrowPanel
+      value: 
+      objectReference: {fileID: 1411207026}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44be757ba62754b03b38814569d87f24, type: 3}
 --- !u!114 &6045368913030390801 stripped

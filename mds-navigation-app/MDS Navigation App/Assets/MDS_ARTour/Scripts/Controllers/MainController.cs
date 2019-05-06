@@ -25,6 +25,9 @@ namespace ARTour
         [SerializeField]
         private NavigationController _navigationController;
 
+        [SerializeField]
+        private GUIController _guiController;
+
         // Getters
         public static MainController Instance
         {
@@ -44,6 +47,11 @@ namespace ARTour
         public NavigationController GetNavigationController()
         {
             return _navigationController;
+        }
+
+        public GUIController GetGUIController()
+        {
+            return _guiController;
         }
 
         // Private constructor for singleton pattern
@@ -74,6 +82,36 @@ namespace ARTour
             // Initialize Placenote
             FeaturesVisualizer.EnablePointcloud(); // For debugging - seeing the tracked points in the camera
             LibPlacenote.Instance.RegisterListener(this);
+        }
+
+        void Update()
+        {
+            // Get the current device orientation using gyro
+            Quaternion orientation = Input.gyro.attitude;
+
+            // Modify GUI based on orientation.x
+            if (orientation.x < 0.3)
+            {
+                // Enlarge the arrowPanel
+                _guiController.ChangeArrowPanelSize(new Vector2(4000, 8000));
+            }
+            else
+            {
+                // Shrink the arrowPanel
+                _guiController.ChangeArrowPanelSize(new Vector2(2500, 1800));
+            }
+        }
+
+        void OnGUI()
+        {
+            GUI.skin.label.fontSize = Screen.width / 20;
+
+            GUILayout.BeginArea(new Rect(20, 600, 400, 400));
+
+            // Label for the gyro attitude
+            GUILayout.Label("Gyro Attitude: " + Input.gyro.attitude);
+
+            GUILayout.EndArea();
         }
 
         /// <summary>
