@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &155632828 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 20477165370597950, guid: e19a1438a65c942e79c50c51765da920,
+    type: 3}
+  m_PrefabInstance: {fileID: 344682241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &255888279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -237,6 +243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlacenoteCameraManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1897422567992072, guid: e19a1438a65c942e79c50c51765da920, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4701138610990218, guid: e19a1438a65c942e79c50c51765da920, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -284,6 +294,35 @@ PrefabInstance:
     - target: {fileID: 166007742, guid: e19a1438a65c942e79c50c51765da920, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272985623773098, guid: e19a1438a65c942e79c50c51765da920,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20477165370597950, guid: e19a1438a65c942e79c50c51765da920,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20477165370597950, guid: e19a1438a65c942e79c50c51765da920,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953550785582132, guid: e19a1438a65c942e79c50c51765da920, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384528983729326, guid: e19a1438a65c942e79c50c51765da920,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438988695418122, guid: e19a1438a65c942e79c50c51765da920,
+        type: 3}
+      propertyPath: enableSimulatedHandshake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e19a1438a65c942e79c50c51765da920, type: 3}
@@ -1463,6 +1502,11 @@ PrefabInstance:
       propertyPath: arrowPanel
       value: 
       objectReference: {fileID: 1411207026}
+    - target: {fileID: 6045368913092471620, guid: 44be757ba62754b03b38814569d87f24,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 155632828}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44be757ba62754b03b38814569d87f24, type: 3}
 --- !u!114 &6045368913030390801 stripped

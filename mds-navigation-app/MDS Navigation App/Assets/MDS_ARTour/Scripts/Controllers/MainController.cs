@@ -9,9 +9,10 @@ using Newtonsoft.Json;
 namespace ARTour
 {
     public class MainController : MonoBehaviour, PlacenoteListener
-    {
+    {   
         // Unity ARKit Session Handler
         private UnityARSessionNativeInterface m_Session;
+        private ARKitWorldTrackingSessionConfiguration m_SessionConfig;
         
         private static MainController _instance;
 
@@ -94,11 +95,17 @@ namespace ARTour
             {
                 // Enlarge the arrowPanel
                 _guiController.ChangeArrowPanelSize(new Vector2(4000, 8000));
+
+                // Pause the AR session
+                PauseSession();
             }
             else
             {
                 // Shrink the arrowPanel
                 _guiController.ChangeArrowPanelSize(new Vector2(2500, 1800));
+                
+                // Start the AR session
+                StartSession();
             }
         }
 
@@ -121,15 +128,31 @@ namespace ARTour
         {
             Application.targetFrameRate = 60;
 
-            ARKitWorldTrackingSessionConfiguration config = new ARKitWorldTrackingSessionConfiguration();
-            config.planeDetection = UnityARPlaneDetection.Horizontal;
-            config.alignment = UnityARAlignment.UnityARAlignmentGravity;
-            config.getPointCloudData = true;
-            config.enableLightEstimation = true;
+            m_SessionConfig = new ARKitWorldTrackingSessionConfiguration();
+            m_SessionConfig.planeDetection = UnityARPlaneDetection.Horizontal;
+            m_SessionConfig.alignment = UnityARAlignment.UnityARAlignmentGravity;
+            m_SessionConfig.getPointCloudData = true;
+            m_SessionConfig.enableLightEstimation = true;
             
-            m_Session.RunWithConfig(config);
+            m_Session.RunWithConfig(m_SessionConfig);
 
             Debug.Log("ARKit enabled");
+        }
+
+        /// <summary>
+        /// Starts the ARKit Session
+        /// </summary>
+        public void StartSession()
+        {  
+            m_Session.RunWithConfig(m_SessionConfig);
+        }
+
+        /// <summary>
+        /// Pauses the current ARKit Session
+        /// </summary>
+        public void PauseSession()
+        {
+            m_Session.Pause();
         }
 
         // Called when a new pose is received from Placenote

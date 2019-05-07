@@ -90,7 +90,6 @@ public class UnityARCameraManager : MonoBehaviour {
 
             m_camera.projectionMatrix = m_session.GetCameraProjection ();
         }
-
 	}
 
 }
