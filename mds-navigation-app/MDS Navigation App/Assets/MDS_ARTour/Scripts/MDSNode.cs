@@ -113,7 +113,6 @@ namespace ARTour
                 transform.LookAt(NextInList.transform);
             }
         }
-
         
         /// <summary>
         /// Helper method that disables the child node of this node
@@ -121,6 +120,17 @@ namespace ARTour
         public void Deactivate()
         {
             transform.GetChild(0).gameObject.SetActive(false);
+        }
+
+        /// <summary>
+        /// Delegate that handles when MDSNode is touched / tapped on
+        /// </summary>
+        public void OnTouch()
+        {
+            Debug.Log("Touched Node: " + m_NodeInfo.name);
+
+            // Disable GUI
+            MainController.Instance.GetGUIController().DisableGUI();
         }
     }
 }

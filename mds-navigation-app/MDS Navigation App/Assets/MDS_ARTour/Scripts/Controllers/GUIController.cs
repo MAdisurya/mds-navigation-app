@@ -11,11 +11,42 @@ namespace ARTour
 
         public RectTransform arrow;     // The arrow for navigation
 
+        private List<RectTransform> m_AllGUI = new List<RectTransform>();   // A list that holds all the GUI elements
+
         public void Awake()
         {
             // Assertions
             Assert.IsNotNull(arrowPanel);
             Assert.IsNotNull(arrow);
+        }
+
+        public void Start()
+        {
+            // Add all gui elements into gui list
+            m_AllGUI.Add(arrowPanel);
+            m_AllGUI.Add(arrow);
+        }
+
+        /// <summary>
+        /// Turns on all GUI elements registered in GUI controller
+        /// </summary>
+        public void EnableGUI()
+        {
+            foreach (RectTransform gui in m_AllGUI)
+            {
+                gui.gameObject.SetActive(true);
+            }
+        }
+
+        /// <summary>
+        /// Turns off all GUI elements registered in GUI controller
+        /// </summary>
+        public void DisableGUI()
+        {
+            foreach (RectTransform gui in m_AllGUI)
+            {
+                gui.gameObject.SetActive(false);
+            }
         }
 
         /// <summary>

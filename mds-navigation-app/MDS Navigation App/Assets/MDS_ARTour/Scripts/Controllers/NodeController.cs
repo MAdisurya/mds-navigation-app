@@ -86,6 +86,37 @@ namespace ARTour
             Assert.IsNotNull(m_EPNodePrefab);
         }
 
+        void Update()
+        {
+            #if UNITY_EDITOR
+
+            // For hit testing in Unity editor simulation
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Collider[] colliders = Physics.OverlapSphere(hit.point, 2.0f);
+
+                    for (int i = 0; i < colliders.Length; i++)
+                    {
+                        MDSNode node = colliders[i].gameObject.GetComponent<MDSNode>();
+
+                        if (node != null && node.NodeInfo.nodeType == (int) MDSNodeType.ENDPOINT)
+                        {
+                            node.OnTouch();
+                        }
+                    }
+                }
+            }
+
+            #else
+
+            #endif
+        }
+
         /// <summary>
         /// Helper function that changes the selected node type for node placement
         /// </summary>
