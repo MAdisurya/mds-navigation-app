@@ -93,26 +93,28 @@ namespace ARTour
             // For hit testing in Unity editor simulation
             if (Input.GetMouseButtonDown(0))
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                MDSNode node = TouchedEPNode(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out hit))
+                if (node != null)
                 {
-                    Collider[] colliders = Physics.OverlapSphere(hit.point, 2.0f);
-
-                    for (int i = 0; i < colliders.Length; i++)
-                    {
-                        MDSNode node = colliders[i].gameObject.GetComponent<MDSNode>();
-
-                        if (node != null && node.NodeInfo.nodeType == (int) MDSNodeType.ENDPOINT)
-                        {
-                            node.OnTouch();
-                        }
-                    }
+                    node.OnTouch();
                 }
             }
 
             #else
+
+            // For hit testing on device
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                MDSNode node = TouchedEPNode(touch.position);
+
+                if (node != null)
+                {
+                    node.OnTouch();
+                }
+            }
 
             #endif
         }
@@ -161,6 +163,32 @@ namespace ARTour
         public void ToggleEraserMode(bool toggle)
         {
             _eraseMode = toggle;
+        }
+
+        /// <summary>
+        /// Helper method that determines whether an EP node has been tapped on, and returns that node
+        /// </summary>
+        public MDSNode TouchedEPNode(Vector3 touchPos)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(touchPos);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                Collider[] colliders = Physics.OverlapSphere(hit.point, 2.0f);
+
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    MDSNode node = colliders[i].gameObject.GetComponent<MDSNode>();
+
+                    if (node != null && node.NodeInfo.nodeType == (int) MDSNodeType.ENDPOINT)
+                    {
+                        return node;
+                    }
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
