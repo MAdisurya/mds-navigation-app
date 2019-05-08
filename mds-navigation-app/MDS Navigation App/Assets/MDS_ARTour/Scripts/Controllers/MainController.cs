@@ -10,6 +10,8 @@ namespace ARTour
 {
     public class MainController : MonoBehaviour, PlacenoteListener
     {   
+        public Camera _camera;
+        
         // Unity ARKit Session Handler
         private UnityARSessionNativeInterface m_Session;
         private ARKitWorldTrackingSessionConfiguration m_SessionConfig;
@@ -28,6 +30,8 @@ namespace ARTour
 
         [SerializeField]
         private GUIController _guiController;
+
+        private bool _sessionRunning = false;
 
         // Getters
         public static MainController Instance
@@ -87,14 +91,15 @@ namespace ARTour
 
         void Update()
         {
-            // Get the current device orientation using gyro
-            Quaternion orientation = Input.gyro.attitude;
+            #if UNITY_EDITOR
+
+            Quaternion cameraRotation = _camera.transform.rotation;
 
             // Modify GUI based on orientation.x
-            if (orientation.x < 0.3)
+            if (cameraRotation.x > 0.3)
             {
                 // Enlarge the arrowPanel
-                _guiController.ChangeArrowPanelSize(new Vector2(4000, 8000));
+                _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
 
                 // Pause the AR session
                 PauseSession();
@@ -102,11 +107,36 @@ namespace ARTour
             else
             {
                 // Shrink the arrowPanel
-                _guiController.ChangeArrowPanelSize(new Vector2(2500, 1800));
+                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
                 
                 // Start the AR session
                 StartSession();
             }
+
+            #else
+
+            // Get the current device orientation using gyro
+            Quaternion orientation = Input.gyro.attitude;
+
+            // Modify GUI based on orientation.x
+            if (orientation.x < 0.3)
+            {
+                // Enlarge the arrowPanel
+                _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
+
+                // Pause the AR session
+                PauseSession();
+            }
+            else
+            {
+                // Shrink the arrowPanel
+                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
+                
+                // Start the AR session
+                StartSession();
+            }
+
+            #endif
         }
 
         void OnGUI()
@@ -135,6 +165,7 @@ namespace ARTour
             m_SessionConfig.enableLightEstimation = true;
             
             m_Session.RunWithConfig(m_SessionConfig);
+            _sessionRunning = true;
 
             Debug.Log("ARKit enabled");
         }
@@ -144,7 +175,12 @@ namespace ARTour
         /// </summary>
         public void StartSession()
         {  
-            m_Session.RunWithConfig(m_SessionConfig);
+            if (!_sessionRunning)
+            {
+                m_Session.RunWithConfig(m_SessionConfig);
+
+                _sessionRunning = true;
+            }
         }
 
         /// <summary>
@@ -152,7 +188,18 @@ namespace ARTour
         /// </summary>
         public void PauseSession()
         {
-            m_Session.Pause();
+            if (_sessionRunning)
+            {
+                m_Session.Pause();
+
+                // Destroy all ARKitRemoteConnections
+                foreach (ARKitRemoteConnection connection in Object.FindObjectsOfType<ARKitRemoteConnection>())
+                {
+                    Destroy(connection.gameObject);
+                }
+
+                _sessionRunning = false;
+            }
         }
 
         // Called when a new pose is received from Placenote
