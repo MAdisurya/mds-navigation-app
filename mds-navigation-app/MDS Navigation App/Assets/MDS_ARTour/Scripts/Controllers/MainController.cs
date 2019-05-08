@@ -101,6 +101,10 @@ namespace ARTour
                 // Enlarge the arrowPanel
                 _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
 
+                // Enlarge arrow, and move arrow up
+                _guiController.AnimateArrowSize(new Vector2(800, 800), 4.0f);
+                _guiController.AnimateArrowPos(new Vector2(0, 1200), 4.0f);
+
                 // Pause the AR session
                 PauseSession();
             }
@@ -108,6 +112,10 @@ namespace ARTour
             {
                 // Shrink the arrowPanel
                 _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
+
+                // Shrink arrow, and move arrow down
+                _guiController.AnimateArrowSize(new Vector2(400, 400), 4.0f);
+                _guiController.AnimateArrowPos(new Vector2(0, 400), 4.0f);
                 
                 // Start the AR session
                 StartSession();
@@ -124,6 +132,10 @@ namespace ARTour
                 // Enlarge the arrowPanel
                 _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
 
+                // Enlarge arrow, and move arrow up
+                _guiController.AnimateArrowSize(new Vector2(800, 800), 4.0f);
+                _guiController.AnimateArrowPos(new Vector2(0, 1200), 4.0f);
+
                 // Pause the AR session
                 PauseSession();
             }
@@ -131,6 +143,10 @@ namespace ARTour
             {
                 // Shrink the arrowPanel
                 _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
+
+                // Shrink arrow, and move arrow down
+                _guiController.AnimateArrowSize(new Vector2(400, 400), 4.0f);
+                _guiController.AnimateArrowPos(new Vector2(0, 400), 4.0f);
                 
                 // Start the AR session
                 StartSession();

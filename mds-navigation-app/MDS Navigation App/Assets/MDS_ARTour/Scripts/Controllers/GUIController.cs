@@ -9,11 +9,13 @@ namespace ARTour
     {
         public RectTransform arrowPanel;    // The background panel for the arrow pointer
 
-        private bool m_CanAnimate = true;
+        public RectTransform arrow;     // The arrow for navigation
 
         public void Awake()
         {
+            // Assertions
             Assert.IsNotNull(arrowPanel);
+            Assert.IsNotNull(arrow);
         }
 
         /// <summary>
@@ -31,7 +33,7 @@ namespace ARTour
         {
             Vector2 sizeDifference = size - arrowPanel.sizeDelta;
 
-            if (sizeDifference.x > 0 && sizeDifference.y > 0)
+            if (sizeDifference.x >= 0 && sizeDifference.y >= 0)
             {
                 // Enlarge
                 if (sizeDifference.x >= 0.5f || sizeDifference.y >= 0.5f)
@@ -45,6 +47,56 @@ namespace ARTour
                 if (sizeDifference.x <= -0.5f || sizeDifference.y <= -0.5f)
                 {
                     arrowPanel.sizeDelta += sizeDifference * Time.deltaTime * speed;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Animates the arrow's size to desired size. Higher speed value = faster animation
+        /// </summary>
+        public void AnimateArrowSize(Vector2 size, float speed)
+        {
+            Vector2 sizeDifference = size - arrow.sizeDelta;
+
+            if (sizeDifference.x >= 0 && sizeDifference.y >= 0)
+            {
+                // Enlarge
+                if (sizeDifference.x >= 0.5f || sizeDifference.y >= 0.5f)
+                {
+                    arrow.sizeDelta += sizeDifference * Time.deltaTime * speed;
+                }
+            }
+            else
+            {
+                // Shrink
+                if (sizeDifference.x <= 0.5f || sizeDifference.y <= 0.5f)
+                {
+                    arrow.sizeDelta += sizeDifference * Time.deltaTime * speed;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Animates the arrow's position to desired pos. Higher speed value = faster animation
+        /// </summary>
+        public void AnimateArrowPos(Vector2 pos, float speed)
+        {
+            Vector2 posDifference = pos - arrow.anchoredPosition;
+
+            if (posDifference.x >= 0 && posDifference.y >= 0)
+            {
+                // Move up
+                if (posDifference.x >= 0.5f || posDifference.y >= 0.5f)
+                {
+                    arrow.anchoredPosition += posDifference * Time.deltaTime * speed;
+                }
+            }
+            else
+            {
+                // Move down
+                if (posDifference.x <= -0.5f || posDifference.y <= -0.5f)
+                {
+                    arrow.anchoredPosition += posDifference * Time.deltaTime * speed;
                 }
             }
         }

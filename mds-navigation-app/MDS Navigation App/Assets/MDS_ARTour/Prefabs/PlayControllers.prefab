@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPanel: {fileID: 0}
+  arrow: {fileID: 0}
 --- !u!1 &6045368912901010095
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e758510d83535430589332b96bfe42c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
   _saveAndLoadController: {fileID: 6045368913030390801}
   _nodeController: {fileID: 6045368913921536765}
   _navigationController: {fileID: 0}
