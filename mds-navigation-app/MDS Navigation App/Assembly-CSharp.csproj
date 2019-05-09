@@ -67,6 +67,7 @@
      <Compile Include="Assets\MDS_ARTour\Scripts\NodePlacer.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\UI\ListItem.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\UI\ListView.cs" />
+     <Compile Include="Assets\MDS_ARTour\Scripts\UI\PuzzleBehaviour.cs" />
      <Compile Include="Assets\Placenote\EditorCoroutines\Scripts\EditorCoroutineExtensions.cs" />
      <Compile Include="Assets\Placenote\EditorCoroutines\Scripts\EditorCoroutines.cs" />
      <Compile Include="Assets\Placenote\Examples\ARKitHitTesting\ARKitHitTesting.cs" />

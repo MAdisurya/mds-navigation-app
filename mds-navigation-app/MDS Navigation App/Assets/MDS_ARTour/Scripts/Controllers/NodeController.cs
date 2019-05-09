@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.iOS;
 using UnityEngine.Assertions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -108,11 +109,14 @@ namespace ARTour
             {
                 Touch touch = Input.GetTouch(0);
 
-                MDSNode node = TouchedEPNode(touch.position);
-
-                if (node != null)
+                if (touch.phase == TouchPhase.Ended)
                 {
-                    node.OnTouch();
+                    MDSNode node = TouchedEPNode(touch.position);
+
+                    if (node != null)
+                    {
+                        node.OnTouch();
+                    }
                 }
             }
 

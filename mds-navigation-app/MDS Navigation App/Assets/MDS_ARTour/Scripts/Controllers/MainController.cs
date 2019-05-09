@@ -111,11 +111,11 @@ namespace ARTour
             else
             {
                 // Shrink the arrowPanel
-                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
+                _guiController.AnimateArrowPanelSize(new Vector2(2000, 1400), 4.0f);
 
                 // Shrink arrow, and move arrow down
-                _guiController.AnimateArrowSize(new Vector2(400, 400), 4.0f);
-                _guiController.AnimateArrowPos(new Vector2(0, 400), 4.0f);
+                _guiController.AnimateArrowSize(new Vector2(300, 300), 4.0f);
+                _guiController.AnimateArrowPos(new Vector2(0, 300), 4.0f);
                 
                 // Start the AR session
                 StartSession();
@@ -142,11 +142,11 @@ namespace ARTour
             else
             {
                 // Shrink the arrowPanel
-                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
+                _guiController.AnimateArrowPanelSize(new Vector2(2000, 1400), 4.0f);
 
                 // Shrink arrow, and move arrow down
-                _guiController.AnimateArrowSize(new Vector2(400, 400), 4.0f);
-                _guiController.AnimateArrowPos(new Vector2(0, 400), 4.0f);
+                _guiController.AnimateArrowSize(new Vector2(300, 300), 4.0f);
+                _guiController.AnimateArrowPos(new Vector2(0, 300), 4.0f);
                 
                 // Start the AR session
                 StartSession();
@@ -208,11 +208,13 @@ namespace ARTour
             {
                 m_Session.Pause();
 
+                #if UNITY_EDITOR
                 // Destroy all ARKitRemoteConnections
                 foreach (ARKitRemoteConnection connection in Object.FindObjectsOfType<ARKitRemoteConnection>())
                 {
                     Destroy(connection.gameObject);
                 }
+                #endif
 
                 _sessionRunning = false;
             }
