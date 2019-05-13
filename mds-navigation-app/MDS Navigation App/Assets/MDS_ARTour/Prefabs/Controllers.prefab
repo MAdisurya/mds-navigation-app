@@ -87,9 +87,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e758510d83535430589332b96bfe42c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 0}
+  _dummyCamera: {fileID: 0}
   _saveAndLoadController: {fileID: 6816733083508429767}
   _nodeController: {fileID: 6184070477483862515}
   _navigationController: {fileID: 1150037519825814771}
+  _guiController: {fileID: 0}
 --- !u!1 &6816733082548007122
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +138,7 @@ GameObject:
   - component: {fileID: 6816733083508429766}
   - component: {fileID: 6816733083508429767}
   m_Layer: 0
-  m_Name: SaveAndLoadController
+  m_Name: EditorSaveAndLoadController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,12 +170,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482986f8873a6471b8b282a39a902d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newMapButton: {fileID: 0}
-  saveMapButton: {fileID: 0}
   loadMapButton: {fileID: 0}
   notificationText: {fileID: 0}
   locationDropdown: {fileID: 0}
   mapListView: {fileID: 0}
+  newMapButton: {fileID: 0}
+  saveMapButton: {fileID: 0}
   _nodePlacer: {fileID: 0}
 --- !u!1 &8312632837977981976
 GameObject:

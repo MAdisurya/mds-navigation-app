@@ -6,8 +6,16 @@ using UnityEngine.UI;
 
 namespace ARTour
 {
+    public enum NodeInputType: uint
+    {
+        NAME = 0,
+        ANSWER
+    }
+
     public class MDSNodeInput : MonoBehaviour
     {
+        public NodeInputType _nodeInputType;
+
         public MDSNode m_NodeParent;
 
         public InputField m_InputField;
@@ -22,9 +30,20 @@ namespace ARTour
         {
             try
             {
-                m_InputField.onEndEdit.AddListener(
-                    delegate { MainController.Instance.GetNodeController().SetNodeName(m_NodeParent, m_InputField.text); }
-                );
+                if (_nodeInputType == NodeInputType.NAME)
+                {
+                    // Set node name
+                    m_InputField.onEndEdit.AddListener(
+                        delegate { MainController.Instance.GetNodeController().SetNodeName(m_NodeParent, m_InputField.text); }
+                    );
+                }
+                else
+                {
+                    // Set node answer
+                    m_InputField.onEndEdit.AddListener(
+                        delegate { MainController.Instance.GetNodeController().SetNodeAnswer(m_NodeParent, int.Parse(m_InputField.text)); }
+                    );
+                }
             }
             catch (System.Exception e)
             {

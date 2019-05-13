@@ -19,7 +19,8 @@ namespace ARTour
     {
         public List<MDSNode> neighbors = new List<MDSNode>();
 
-        public MDSNodeInput inputBehaviour;
+        public MDSNodeInput nameInputBehaviour;
+        public MDSNodeInput answerInputBehaviour;
         
         private float m_HCost;
         private float m_GCost;
@@ -127,7 +128,7 @@ namespace ARTour
         /// </summary>
         public void OnTouch()
         {
-            Debug.Log("Touched Node: " + m_NodeInfo.name);
+            Debug.Log(m_NodeInfo.name + " answer: " + m_NodeInfo.answer);
 
             // Disable GUI
             MainController.Instance.GetGUIController().DisableGUI();

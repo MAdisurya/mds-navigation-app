@@ -19,6 +19,7 @@ namespace ARTour
         public float pz; // position.z
 
         public int nodeType; // mds node type stored using its raw value - int
+        public int answer = 0;  // the answer for the puzzle challenge
 
         public string name = "node"; // the name of the node - defaults to "node"
     }
@@ -153,6 +154,17 @@ namespace ARTour
             node.NodeInfo.name = name;
         }
 
+        public void SetNodeAnswer(MDSNode node, int answer)
+        {
+            if (answer == 0)
+            {
+                MainController.Instance.GetSaveAndLoadController().notificationText.text = "Please enter a value greater than 0!";
+                return;
+            }
+
+            node.NodeInfo.answer = answer;
+        }
+
         /// <summary>
         /// Helper method that sets the target node from the targetNodeObjList using an int
         /// </summary>
@@ -218,9 +230,14 @@ namespace ARTour
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
 
-            if (newNode.inputBehaviour != null)
+            if (newNode.nameInputBehaviour != null)
             {
-                newNode.inputBehaviour.SetInputText(nodeInfo.name);
+                newNode.nameInputBehaviour.SetInputText(nodeInfo.name);
+            }
+
+            if (newNode.answerInputBehaviour != null)
+            {
+                newNode.answerInputBehaviour.SetInputText(nodeInfo.answer.ToString());
             }
 
             m_NodeObjList.Add(newNode);
@@ -256,9 +273,14 @@ namespace ARTour
 
             newNode.Activate();
 
-            if (newNode.inputBehaviour != null)
+            if (newNode.nameInputBehaviour != null)
             {
-                newNode.inputBehaviour.SetInputText(nodeInfo.name);
+                newNode.nameInputBehaviour.SetInputText(nodeInfo.name);
+            }
+
+            if (newNode.answerInputBehaviour != null)
+            {
+                newNode.answerInputBehaviour.SetInputText(nodeInfo.answer.ToString());
             }
 
             m_NodeObjList.Add(newNode);
@@ -293,9 +315,14 @@ namespace ARTour
             newNode.NodeInfo = nodeInfo;
             newNode.transform.position = new Vector3(nodeInfo.px, nodeInfo.py, nodeInfo.pz);
 
-            if (newNode.inputBehaviour != null)
+            if (newNode.nameInputBehaviour != null)
             {
-                newNode.inputBehaviour.SetInputText(nodeInfo.name);
+                newNode.nameInputBehaviour.SetInputText(nodeInfo.name);
+            }
+
+            if (newNode.answerInputBehaviour != null)
+            {
+                newNode.answerInputBehaviour.SetInputText(nodeInfo.answer.ToString());
             }
 
             m_NodeObjList.Add(newNode);
