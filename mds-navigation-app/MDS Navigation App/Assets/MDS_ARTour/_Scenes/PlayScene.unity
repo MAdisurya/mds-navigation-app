@@ -1151,6 +1151,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3707389050951683934}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1700188528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 166007745, guid: e19a1438a65c942e79c50c51765da920,
+    type: 3}
+  m_PrefabInstance: {fileID: 344682241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a555e243ef9fa4b7692b9e0d02778a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1726185104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,10 +1510,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1671429640, guid: 6aec1d780071544d3892fbfe066e5ae3, type: 3}
-      propertyPath: slideOutXY.y
-      value: 4000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aec1d780071544d3892fbfe066e5ae3, type: 3}
 --- !u!1001 &6045368912596736756
@@ -1604,6 +1612,11 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 155632828}
+    - target: {fileID: 6045368913092471620, guid: 44be757ba62754b03b38814569d87f24,
+        type: 3}
+      propertyPath: _navPawn
+      value: 
+      objectReference: {fileID: 1700188528}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44be757ba62754b03b38814569d87f24, type: 3}
 --- !u!114 &6045368913030390801 stripped
