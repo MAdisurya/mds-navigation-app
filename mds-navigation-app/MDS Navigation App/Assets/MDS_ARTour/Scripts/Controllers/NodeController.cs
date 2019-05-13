@@ -38,10 +38,10 @@ namespace ARTour
         public MDSNodeType _selectedNodeType = MDSNodeType.WAYPOINT; // Current selected node type, controlled by UI buttons
 
         private List<MDSNode> m_NodeObjList = new List<MDSNode>();
-
         private List<MDSNode> m_ActiveNodeObjList = new List<MDSNode>();
-
         private List<MDSNode> m_TargetNodeObjList = new List<MDSNode>();
+
+        private List<INodeListener> m_NodeListenersList = new List<INodeListener>();
 
         private MDSNode m_TargetNode; // Target node for passing into AStar pathfinding algorithm
 
@@ -125,6 +125,14 @@ namespace ARTour
         }
 
         /// <summary>
+        /// Registers passed node listener into the Node Listeners list
+        /// </summary>
+        public void RegisterNodeListener(INodeListener nodeListener)
+        {
+            m_NodeListenersList.Add(nodeListener);
+        }
+
+        /// <summary>
         /// Helper function that changes the selected node type for node placement
         /// </summary>
         public void ChangeSelectedNodeType(MDSNodeType nodeType)
@@ -154,6 +162,9 @@ namespace ARTour
             node.NodeInfo.name = name;
         }
 
+        /// <summary>
+        /// Helper method that sets the passed nodes puzzle answer
+        /// </summary>
         public void SetNodeAnswer(MDSNode node, int answer)
         {
             if (answer == 0)
@@ -171,6 +182,12 @@ namespace ARTour
         public void SetTargetNode(int targetIndex)
         {
             m_TargetNode = m_TargetNodeObjList[targetIndex];
+
+            // Callback
+            foreach (INodeListener listener in m_NodeListenersList)
+            {
+                listener.OnTargetNodeChanged(m_TargetNode);
+            }
         }
 
         /// <summary>

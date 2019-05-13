@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace ARTour
 {
     public class PuzzleBehaviour : MonoBehaviour
     {   
+        public RectTransform puzzleParentTransform;
+        
         public Vector2 slideInXY;
         public Vector2 slideOutXY;
 
@@ -36,6 +39,14 @@ namespace ARTour
             get { return m_Answer; }
             set { m_Answer = value; }
         }
+
+        void Awake()
+        {
+            // Assertions
+            Assert.IsNotNull(puzzleParentTransform);
+
+            puzzleParentTransform.anchoredPosition = slideOutXY;
+        }
         
         void Update()
         {
@@ -58,7 +69,7 @@ namespace ARTour
 
             if (difference.x > 0.5f || difference.y > 0.5f)
             {
-                gameObject.GetComponent<RectTransform>().anchoredPosition -= difference * Time.deltaTime * speed;
+                puzzleParentTransform.anchoredPosition -= difference * Time.deltaTime * speed;
             }
         }
 
@@ -71,7 +82,7 @@ namespace ARTour
 
             if (difference.x > 0.5f || difference.y > 0.5f)
             {
-                gameObject.GetComponent<RectTransform>().anchoredPosition += difference * Time.deltaTime * speed;
+                puzzleParentTransform.anchoredPosition += difference * Time.deltaTime * speed;
             }
         }
 

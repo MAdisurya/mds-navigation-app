@@ -1492,11 +1492,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PuzzleChallenge
       objectReference: {fileID: 0}
-    - target: {fileID: 3707389052555243864, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3707389052555243865, guid: 6aec1d780071544d3892fbfe066e5ae3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1604,39 +1599,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7339295169591403215, guid: 6aec1d780071544d3892fbfe066e5ae3,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339295169591403215, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DisablePuzzle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339295169591403215, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339295169591403215, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339295169591403215, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1291898864}
-    - target: {fileID: 7339295169591403215, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: EnableGUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7339295169591403215, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6aec1d780071544d3892fbfe066e5ae3, type: 3}
 --- !u!1001 &6045368912596736756
@@ -1651,6 +1616,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayControllers
       objectReference: {fileID: 0}
+    - target: {fileID: 1854280084, guid: 44be757ba62754b03b38814569d87f24, type: 3}
+      propertyPath: arrowPanel
+      value: 
+      objectReference: {fileID: 1411207026}
+    - target: {fileID: 1854280084, guid: 44be757ba62754b03b38814569d87f24, type: 3}
+      propertyPath: arrow
+      value: 
+      objectReference: {fileID: 1825743548}
+    - target: {fileID: 1854280084, guid: 44be757ba62754b03b38814569d87f24, type: 3}
+      propertyPath: puzzlePanel
+      value: 
+      objectReference: {fileID: 153394401}
     - target: {fileID: 6045368912901010088, guid: 44be757ba62754b03b38814569d87f24,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1726,18 +1703,6 @@ PrefabInstance:
       propertyPath: mapListView
       value: 
       objectReference: {fileID: 385546252}
-    - target: {fileID: 1854280084, guid: 44be757ba62754b03b38814569d87f24, type: 3}
-      propertyPath: arrowPanel
-      value: 
-      objectReference: {fileID: 1411207026}
-    - target: {fileID: 1854280084, guid: 44be757ba62754b03b38814569d87f24, type: 3}
-      propertyPath: arrow
-      value: 
-      objectReference: {fileID: 1825743548}
-    - target: {fileID: 1854280084, guid: 44be757ba62754b03b38814569d87f24, type: 3}
-      propertyPath: puzzlePanel
-      value: 
-      objectReference: {fileID: 153394401}
     - target: {fileID: 6045368913092471620, guid: 44be757ba62754b03b38814569d87f24,
         type: 3}
       propertyPath: _mainCamera

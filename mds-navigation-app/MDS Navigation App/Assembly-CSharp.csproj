@@ -61,6 +61,7 @@
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\NavigationController.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\NodeController.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\Controllers\SaveAndLoadController.cs" />
+     <Compile Include="Assets\MDS_ARTour\Scripts\Interfaces\INodeListener.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\MDSNode.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\MDSNodeInput.cs" />
      <Compile Include="Assets\MDS_ARTour\Scripts\NavPawn.cs" />
