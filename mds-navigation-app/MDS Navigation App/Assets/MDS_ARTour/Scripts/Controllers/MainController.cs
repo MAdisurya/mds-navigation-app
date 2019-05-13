@@ -18,7 +18,8 @@ namespace ARTour
 
     public class MainController : MonoBehaviour, PlacenoteListener
     {   
-        public Camera _camera;
+        public Camera _mainCamera;
+        public Camera _dummyCamera;
         
         // Unity ARKit Session Handler
         private UnityARSessionNativeInterface m_Session;
@@ -77,7 +78,8 @@ namespace ARTour
             // Assertions
             Assert.IsNotNull(_saveAndLoadController);
             Assert.IsNotNull(_nodeController);
-            Assert.IsNotNull(_camera);
+            Assert.IsNotNull(_mainCamera);
+            Assert.IsNotNull(_dummyCamera);
 
             if (_instance == null)
             {
@@ -104,32 +106,32 @@ namespace ARTour
         {
             #if UNITY_EDITOR
 
-            Quaternion cameraRotation = _camera.transform.rotation;
+            Quaternion cameraRotation = _mainCamera.transform.rotation;
 
             // Modify GUI based on orientation.x
             if (cameraRotation.x > 0.3)
             {
                 // Enlarge the arrowPanel
-                _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
+                // _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
 
                 // Enlarge arrow, and move arrow up
                 _guiController.AnimateArrowSize(new Vector2(800, 800), 4.0f);
                 _guiController.AnimateArrowPos(new Vector2(0, 1200), 4.0f);
 
-                // Pause the AR session
-                PauseSession();
+                // Disable the camera
+                DisableCamera();
             }
             else
             {
                 // Shrink the arrowPanel
-                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
+                // _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
 
                 // Shrink arrow, and move arrow down
                 _guiController.AnimateArrowSize(new Vector2(400, 400), 4.0f);
                 _guiController.AnimateArrowPos(new Vector2(0, 400), 4.0f);
-                
-                // Start the AR session
-                StartSession();
+
+                // Enable camera
+                EnableCamera();
             }
 
             #else
@@ -145,15 +147,21 @@ namespace ARTour
                 // Enlarge arrow, and move arrow up
                 _guiController.AnimateArrowSize(new Vector2(800, 800), 4.0f);
                 _guiController.AnimateArrowPos(new Vector2(0, 1200), 4.0f);
+
+                // Disable the camera
+                DisableCamera();
             }
             else if (m_CurrGyroOrientation == GyroOrientation.FACE_UP)
             {
                 // Shrink the arrowPanel
-                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
+                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1400), 4.0f);
 
                 // Shrink arrow, and move arrow down
-                _guiController.AnimateArrowSize(new Vector2(400, 400), 4.0f);
-                _guiController.AnimateArrowPos(new Vector2(0, 400), 4.0f);
+                _guiController.AnimateArrowSize(new Vector2(300, 300), 4.0f);
+                _guiController.AnimateArrowPos(new Vector2(0, 300), 4.0f);
+
+                // Enable the camera
+                EnableCamera();
             }
 
             #endif
@@ -191,37 +199,21 @@ namespace ARTour
         }
 
         /// <summary>
-        /// Starts the ARKit Session
+        /// Disables the main camera
         /// </summary>
-        public void StartSession()
-        {  
-            if (!_sessionRunning)
-            {
-                m_Session.RunWithConfig(m_SessionConfig);
-
-                _sessionRunning = true;
-            }
+        public void DisableCamera()
+        {
+            _mainCamera.enabled = false;
+            _dummyCamera.enabled = true;
         }
 
         /// <summary>
-        /// Pauses the current ARKit Session
+        /// Enables the main camera
         /// </summary>
-        public void PauseSession()
+        public void EnableCamera()
         {
-            if (_sessionRunning)
-            {
-                m_Session.Pause();
-
-                #if UNITY_EDITOR
-                // Destroy all ARKitRemoteConnections
-                foreach (ARKitRemoteConnection connection in Object.FindObjectsOfType<ARKitRemoteConnection>())
-                {
-                    Destroy(connection.gameObject);
-                }
-                #endif
-
-                _sessionRunning = false;
-            }
+            _dummyCamera.enabled = false;
+            _mainCamera.enabled = true;
         }
 
         // Called when a new pose is received from Placenote
