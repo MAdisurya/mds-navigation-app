@@ -128,10 +128,17 @@ namespace ARTour
         /// </summary>
         public void OnTouch()
         {
-            Debug.Log(m_NodeInfo.name + " answer: " + m_NodeInfo.answer);
+            GUIController guiController = MainController.Instance.GetGUIController();
 
             // Disable GUI
-            MainController.Instance.GetGUIController().DisableGUI();
+            guiController.DisableGUI();
+            // Show puzzle challenge GUI
+            guiController.puzzlePanel.EnablePuzzle();
+
+            // Set image name and answer for puzzle challenge
+            guiController.puzzlePanel.PuzzleImageName = m_NodeInfo.name;
+            guiController.puzzlePanel.PuzzleAnswer = m_NodeInfo.answer;
+            
         }
     }
 }

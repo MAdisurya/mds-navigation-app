@@ -8,8 +8,9 @@ namespace ARTour
     public class GUIController : MonoBehaviour
     {
         public RectTransform arrowPanel;    // The background panel for the arrow pointer
-
         public RectTransform arrow;     // The arrow for navigation
+        
+        public PuzzleBehaviour puzzlePanel; // The puzzle challenge GUI parent
 
         private List<RectTransform> m_AllGUI = new List<RectTransform>();   // A list that holds all the GUI elements
 

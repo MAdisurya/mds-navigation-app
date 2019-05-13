@@ -6,11 +6,12 @@ namespace ARTour
 {
     public class PuzzleBehaviour : MonoBehaviour
     {   
-        [Header("Properties")]
-        // public string name;
-
         public Vector2 slideInXY;
         public Vector2 slideOutXY;
+
+        private string m_ImageName;
+
+        private int m_Answer;
 
         private enum AnimatingState
         {
@@ -22,16 +23,29 @@ namespace ARTour
         private AnimatingState m_CurrAnimState = AnimatingState.NONE;
 
         private Vector2 m_CurrSlideXY = new Vector2();
+
+        // Getters / Setters
+        public string PuzzleImageName
+        {
+            get { return m_ImageName; }
+            set { m_ImageName = value; }
+        }
+
+        public int PuzzleAnswer
+        {
+            get { return m_Answer; }
+            set { m_Answer = value; }
+        }
         
         void Update()
         {
             if (m_CurrAnimState == AnimatingState.SLIDE_IN)
             {
-                AnimateSlideIn(m_CurrSlideXY, 3.0f);
+                AnimateSlideIn(m_CurrSlideXY, 6.0f);
             }
             else if (m_CurrAnimState == AnimatingState.SLIDE_OUT)
             {
-                AnimateSlideOut(m_CurrSlideXY, 3.0f);
+                AnimateSlideOut(m_CurrSlideXY, 6.0f);
             }
         }
 
@@ -61,13 +75,13 @@ namespace ARTour
             }
         }
 
-        public void OnEnablePuzzle()
+        public void EnablePuzzle()
         {
             m_CurrSlideXY = slideInXY;
             m_CurrAnimState = AnimatingState.SLIDE_IN;
         }
 
-        public void OnDisablePuzzle()
+        public void DisablePuzzle()
         {
             m_CurrSlideXY = slideOutXY;
             m_CurrAnimState = AnimatingState.SLIDE_OUT;

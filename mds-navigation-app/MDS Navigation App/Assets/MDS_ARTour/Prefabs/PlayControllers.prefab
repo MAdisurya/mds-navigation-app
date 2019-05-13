@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPanel: {fileID: 0}
   arrow: {fileID: 0}
+  puzzlePanel: {fileID: 0}
 --- !u!1 &6045368912901010095
 GameObject:
   m_ObjectHideFlags: 0
