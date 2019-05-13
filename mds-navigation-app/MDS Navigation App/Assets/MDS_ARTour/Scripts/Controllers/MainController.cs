@@ -8,6 +8,14 @@ using Newtonsoft.Json;
 
 namespace ARTour
 {
+    // Gyro orientation enum for gyro orientation states
+    public enum GyroOrientation: uint
+    {
+        INITIALIZING = 0,
+        FACE_UP,
+        FACE_DOWN
+    }
+
     public class MainController : MonoBehaviour, PlacenoteListener
     {   
         public Camera _camera;
@@ -17,6 +25,10 @@ namespace ARTour
         private ARKitWorldTrackingSessionConfiguration m_SessionConfig;
         
         private static MainController _instance;
+
+        private bool _sessionRunning = false;
+
+        private GyroOrientation m_CurrGyroOrientation = GyroOrientation.INITIALIZING;
 
         // Reference to controllers
         [SerializeField]
@@ -30,8 +42,6 @@ namespace ARTour
 
         [SerializeField]
         private GUIController _guiController;
-
-        private bool _sessionRunning = false;
 
         // Getters
         public static MainController Instance
@@ -67,6 +77,7 @@ namespace ARTour
             // Assertions
             Assert.IsNotNull(_saveAndLoadController);
             Assert.IsNotNull(_nodeController);
+            Assert.IsNotNull(_camera);
 
             if (_instance == null)
             {
@@ -123,11 +134,10 @@ namespace ARTour
 
             #else
 
-            // Get the current device orientation using gyro
-            Quaternion orientation = Input.gyro.attitude;
+            // Calculate the gyro orientation
+            GetGyroOrientation();
 
-            // Modify GUI based on orientation.x
-            if (orientation.x < 0.3)
+            if (m_CurrGyroOrientation == GyroOrientation.FACE_DOWN)
             {
                 // Enlarge the arrowPanel
                 _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
@@ -135,11 +145,8 @@ namespace ARTour
                 // Enlarge arrow, and move arrow up
                 _guiController.AnimateArrowSize(new Vector2(800, 800), 4.0f);
                 _guiController.AnimateArrowPos(new Vector2(0, 1200), 4.0f);
-
-                // Pause the AR session
-                PauseSession();
             }
-            else
+            else if (m_CurrGyroOrientation == GyroOrientation.FACE_UP)
             {
                 // Shrink the arrowPanel
                 _guiController.AnimateArrowPanelSize(new Vector2(2500, 1800), 4.0f);
@@ -147,9 +154,6 @@ namespace ARTour
                 // Shrink arrow, and move arrow down
                 _guiController.AnimateArrowSize(new Vector2(400, 400), 4.0f);
                 _guiController.AnimateArrowPos(new Vector2(0, 400), 4.0f);
-                
-                // Start the AR session
-                StartSession();
             }
 
             #endif
@@ -208,11 +212,13 @@ namespace ARTour
             {
                 m_Session.Pause();
 
+                #if UNITY_EDITOR
                 // Destroy all ARKitRemoteConnections
                 foreach (ARKitRemoteConnection connection in Object.FindObjectsOfType<ARKitRemoteConnection>())
                 {
                     Destroy(connection.gameObject);
                 }
+                #endif
 
                 _sessionRunning = false;
             }
@@ -263,6 +269,45 @@ namespace ARTour
                     {
                         Debug.LogException(e);
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Calculates orientation of the gyro
+        /// </summary>
+        private void GetGyroOrientation()
+        {
+            Quaternion gyroRef = Input.gyro.attitude;
+            Quaternion gyroCopy = new Quaternion(gyroRef.x, gyroRef.y, gyroRef.z, gyroRef.w);
+
+            // If gyro.x, gyro.y, and gyro.w are negative, then convert to positive floats
+            if (gyroCopy.x < 0) { gyroCopy.x *= -1; }
+            if (gyroCopy.y < 0) { gyroCopy.y *= -1; }
+            if (gyroCopy.w < 0) { gyroCopy.w *= -1; }
+
+            if (gyroCopy.w > 0.5f)
+            {
+                // If gyro.w is > than 0.5, then listen to gyro.x
+                if (gyroCopy.x > 0.2f)
+                {
+                    m_CurrGyroOrientation = GyroOrientation.FACE_UP;
+                }
+                else
+                {
+                    m_CurrGyroOrientation = GyroOrientation.FACE_DOWN;
+                }
+            }
+            else
+            {
+                // Otherwise, listen to gyro.y
+                if (gyroCopy.y > 0.2f)
+                {
+                    m_CurrGyroOrientation = GyroOrientation.FACE_UP;
+                }
+                else
+                {
+                    m_CurrGyroOrientation = GyroOrientation.FACE_DOWN;
                 }
             }
         }
