@@ -68,6 +68,11 @@ namespace ARTour
             return _guiController;
         }
 
+        public GyroOrientation GyroOrientation
+        {
+            get { return m_CurrGyroOrientation; }
+        }
+
         // Private constructor for singleton pattern
         private MainController() { }
 
