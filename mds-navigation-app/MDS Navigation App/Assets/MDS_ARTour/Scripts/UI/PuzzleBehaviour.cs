@@ -15,6 +15,8 @@ namespace ARTour
         public Vector2 slideInXY;
         public Vector2 slideOutXY;
 
+        private List<Sprite> m_PuzzleSprites = new List<Sprite>();
+
         private string m_ImageName;
 
         private int m_Answer;
@@ -50,6 +52,14 @@ namespace ARTour
         {
             m_ImageName = name;
             m_Answer = answer;
+
+            foreach(Sprite spr in m_PuzzleSprites)
+            {
+                if (spr.name == m_ImageName)
+                {
+                    puzzleImage.sprite = spr;
+                }
+            }
         }
 
         void Awake()
@@ -57,6 +67,14 @@ namespace ARTour
             // Assertions
             Assert.IsNotNull(puzzleParentTransform);
             Assert.IsNotNull(puzzleImage);
+
+            // Pre-allocate memory for the puzzle challenge sprites
+            Object[] puzzleSprites = Resources.LoadAll("Sprites/Puzzles/", typeof(Sprite));
+
+            foreach(Object spr in puzzleSprites)
+            {
+                m_PuzzleSprites.Add((Sprite) spr);
+            }
 
             puzzleParentTransform.anchoredPosition = slideOutXY;
         }
