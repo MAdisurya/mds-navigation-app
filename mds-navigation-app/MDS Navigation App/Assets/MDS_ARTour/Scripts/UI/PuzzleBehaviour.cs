@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 
 namespace ARTour
@@ -8,6 +9,8 @@ namespace ARTour
     public class PuzzleBehaviour : MonoBehaviour
     {   
         public RectTransform puzzleParentTransform;
+
+        public Image puzzleImage;
         
         public Vector2 slideInXY;
         public Vector2 slideOutXY;
@@ -40,10 +43,20 @@ namespace ARTour
             set { m_Answer = value; }
         }
 
+        /// <summary>
+        /// Helper method that sets the image name and answer
+        /// </summary>
+        public void SetImageAndAnswer(string name, int answer)
+        {
+            m_ImageName = name;
+            m_Answer = answer;
+        }
+
         void Awake()
         {
             // Assertions
             Assert.IsNotNull(puzzleParentTransform);
+            Assert.IsNotNull(puzzleImage);
 
             puzzleParentTransform.anchoredPosition = slideOutXY;
         }
@@ -86,12 +99,18 @@ namespace ARTour
             }
         }
 
+        /// <summary>
+        /// Enables the puzzle GUI, will automatically animate in after enable
+        /// </summary>
         public void EnablePuzzle()
         {
             m_CurrSlideXY = slideInXY;
             m_CurrAnimState = AnimatingState.SLIDE_IN;
         }
 
+        /// <summary>
+        /// Disables the puzzle GUI, will automatically animate out after disable
+        /// </summary>
         public void DisablePuzzle()
         {
             m_CurrSlideXY = slideOutXY;
