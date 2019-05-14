@@ -11,6 +11,8 @@ namespace ARTour
         public RectTransform puzzleParentTransform;
 
         public Image puzzleImage;
+
+        public Text incorrectLabel;
         
         public Vector2 slideInXY;
         public Vector2 slideOutXY;
@@ -69,6 +71,7 @@ namespace ARTour
             // Assertions
             Assert.IsNotNull(puzzleParentTransform);
             Assert.IsNotNull(puzzleImage);
+            Assert.IsNotNull(incorrectLabel);
 
             // Pre-allocate memory for the puzzle challenge sprites
             Object[] puzzleSprites = Resources.LoadAll("Sprites/Puzzles/", typeof(Sprite));
@@ -78,6 +81,7 @@ namespace ARTour
                 m_PuzzleSprites.Add((Sprite) spr);
             }
 
+            incorrectLabel.enabled = false;
             puzzleParentTransform.anchoredPosition = slideOutXY;
         }
         
@@ -174,7 +178,7 @@ namespace ARTour
         /// </summary>
         public void OnAnswerCorrect()
         {
-            Debug.Log("Correct!");
+            incorrectLabel.enabled = false;
         }
 
         /// <summary>
@@ -182,7 +186,7 @@ namespace ARTour
         /// </summary>
         public void OnAnswerIncorrect()
         {
-            Debug.Log("Incorrect!");
+            incorrectLabel.enabled = true;
         }
     }
 }
