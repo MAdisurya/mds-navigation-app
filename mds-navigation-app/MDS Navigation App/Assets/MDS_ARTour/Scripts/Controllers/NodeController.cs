@@ -249,12 +249,26 @@ namespace ARTour
 
             if (newNode.nameInputBehaviour != null)
             {
-                newNode.nameInputBehaviour.SetInputText(nodeInfo.name);
+                if (MainController.Instance._mode == Mode.EDITOR_MODE)
+                {
+                    newNode.nameInputBehaviour.SetInputText(nodeInfo.name);
+                }
+                else
+                {
+                    newNode.nameInputBehaviour.gameObject.SetActive(false);
+                }
             }
 
             if (newNode.answerInputBehaviour != null)
             {
-                newNode.answerInputBehaviour.SetInputText(nodeInfo.answer.ToString());
+                if (MainController.Instance._mode == Mode.EDITOR_MODE)
+                {
+                    newNode.answerInputBehaviour.SetInputText(nodeInfo.answer.ToString());
+                }
+                else
+                {
+                    newNode.answerInputBehaviour.gameObject.SetActive(false);
+                }
             }
 
             m_NodeObjList.Add(newNode);

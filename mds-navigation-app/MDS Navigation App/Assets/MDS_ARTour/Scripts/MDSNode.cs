@@ -136,9 +136,7 @@ namespace ARTour
             guiController.puzzlePanel.EnablePuzzle();
 
             // Set image name and answer for puzzle challenge
-            guiController.puzzlePanel.PuzzleImageName = m_NodeInfo.name;
-            guiController.puzzlePanel.PuzzleAnswer = m_NodeInfo.answer;
-            
+            guiController.puzzlePanel.SetImageAndAnswer(m_NodeInfo.name, m_NodeInfo.answer);
         }
     }
 }

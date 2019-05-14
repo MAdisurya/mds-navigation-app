@@ -171,8 +171,12 @@ namespace ARTour
             }
 
             // Read saved map Id from file
-            // m_SavedMapId = ReadMapIDFromFile();
-            m_SavedMapId = mapListView.CurrentMapId;
+            m_SavedMapId = ReadMapIDFromFile();
+            
+            if (mapListView.CurrentMapId != null)
+            {
+                m_SavedMapId = mapListView.CurrentMapId;
+            }
 
             // if (m_SavedMapId == null)
             // {

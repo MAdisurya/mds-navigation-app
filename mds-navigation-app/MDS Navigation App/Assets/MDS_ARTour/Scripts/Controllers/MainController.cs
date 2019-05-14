@@ -8,6 +8,12 @@ using Newtonsoft.Json;
 
 namespace ARTour
 {
+    public enum Mode: uint
+    {
+        PLAY_MODE,
+        EDITOR_MODE
+    }
+
     // Gyro orientation enum for gyro orientation states
     public enum GyroOrientation: uint
     {
@@ -18,6 +24,8 @@ namespace ARTour
 
     public class MainController : MonoBehaviour, PlacenoteListener
     {   
+        public Mode _mode = Mode.PLAY_MODE;
+
         public Camera _mainCamera;
         public Camera _dummyCamera;
         
