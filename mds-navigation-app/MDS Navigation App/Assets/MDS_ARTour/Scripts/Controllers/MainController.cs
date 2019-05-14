@@ -27,8 +27,6 @@ namespace ARTour
         
         private static MainController _instance;
 
-        private bool _sessionRunning = false;
-
         private GyroOrientation m_CurrGyroOrientation = GyroOrientation.INITIALIZING;
 
         // Reference to controllers
@@ -193,7 +191,6 @@ namespace ARTour
             m_SessionConfig.enableLightEstimation = true;
             
             m_Session.RunWithConfig(m_SessionConfig);
-            _sessionRunning = true;
 
             Debug.Log("ARKit enabled");
         }

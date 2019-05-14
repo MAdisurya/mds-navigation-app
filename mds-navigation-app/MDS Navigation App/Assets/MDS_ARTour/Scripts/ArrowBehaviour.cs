@@ -4,47 +4,38 @@ using UnityEngine;
 
 namespace ARTour
 {
-    public class ArrowBehaviour : MonoBehaviour, INodeListener
+    public class ArrowBehaviour : MonoBehaviour
     {
+        public Transform arrowTransformRef;     // A transform reference point
+
         public float _defaultRotation = 0f;    // The default rotation of the arrow sprite
-
-        private Vector3 m_TargetPos;     // The target node transform
-
-        void Awake()
-        {
-            // Register self into the node listener list
-            MainController.Instance.GetNodeController().RegisterNodeListener(this);
-        }
 
         void Update()
         {
-            if (m_TargetPos != null)
+            // Get reference of main camera transform
+            Transform cameraTransform = MainController.Instance._mainCamera.transform;
+
+            // Update the arrow transform reference position and rotation to the main cameras every frame
+            arrowTransformRef.position = cameraTransform.position;
+            arrowTransformRef.rotation = Quaternion.Euler(0, cameraTransform.localEulerAngles.y, 
+                cameraTransform.localEulerAngles.z);
+
+            if (MainController.Instance.GetNodeController().TargetNode != null)
             {
-                LookAt(m_TargetPos);
+                LookAt(MainController.Instance.GetNodeController().TargetNode.transform);
             }
         }
 
         /// <summary>
-        /// Takes in a transform, and calculates the angle for arrow to look at target position
+        /// Method that uses a transform, converts it into radius, and turns arrow towards that position
         /// </summary>
-        private void LookAt(Vector3 targetPos)
+        private void LookAt(Transform target)
         {
+            Vector3 targetPos = arrowTransformRef.InverseTransformPoint(target.position);
+
             float targetAngle = -Mathf.Atan2(targetPos.x, targetPos.z) * Mathf.Rad2Deg + _defaultRotation;
 
             transform.eulerAngles = new Vector3(0, 0, targetAngle);
-        }
-
-        /// <summary>
-        /// Callback method for when target node has changed.
-        /// Implemented from INodeListener interface
-        /// </summary>
-        public void OnTargetNodeChanged(MDSNode newTargetNode)
-        {
-            if (newTargetNode.transform != null)
-            {
-                // Set the target position
-                m_TargetPos = Camera.main.transform.InverseTransformDirection(newTargetNode.transform.position);
-            }
         }
     }
 }
