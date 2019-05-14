@@ -133,7 +133,7 @@ namespace ARTour
             // Disable GUI
             guiController.DisableGUI();
             // Show puzzle challenge GUI
-            guiController.puzzlePanel.EnablePuzzle();
+            guiController.puzzlePanel.EnablePanel();
 
             // Set image name and answer for puzzle challenge
             guiController.puzzlePanel.SetImageAndAnswer(m_NodeInfo.name, m_NodeInfo.answer);

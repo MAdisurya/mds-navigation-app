@@ -195,7 +195,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1671429640}
-        m_MethodName: DisablePuzzle
+        m_MethodName: DisablePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -655,11 +655,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2430d6801e65d416f8aed94abe6f3e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentTransform: {fileID: 3707389052555243865}
+  slideInXY: {x: 0, y: 0}
+  slideOutXY: {x: 0, y: 4000}
   puzzleParentTransform: {fileID: 3707389052555243865}
   puzzleImage: {fileID: 3707389050979597168}
   incorrectLabel: {fileID: 1420352127}
-  slideInXY: {x: 0, y: 0}
-  slideOutXY: {x: 0, y: 4000}
 --- !u!1 &3707389052798334906
 GameObject:
   m_ObjectHideFlags: 0
