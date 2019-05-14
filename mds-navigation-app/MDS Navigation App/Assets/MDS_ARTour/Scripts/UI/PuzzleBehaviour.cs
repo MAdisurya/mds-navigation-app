@@ -53,6 +53,8 @@ namespace ARTour
             m_ImageName = name;
             m_Answer = answer;
 
+            Debug.Log(answer);
+
             foreach(Sprite spr in m_PuzzleSprites)
             {
                 if (spr.name == m_ImageName)
@@ -133,6 +135,54 @@ namespace ARTour
         {
             m_CurrSlideXY = slideOutXY;
             m_CurrAnimState = AnimatingState.SLIDE_OUT;
+        }
+
+        /// <summary>
+        /// Compares passed answer with PuzzleBehaviour.PuzzleAnswer
+        /// </summary>
+        public void CompareAnswers(int answer)
+        {
+            if (answer == m_Answer)
+            {
+                OnAnswerCorrect();
+            }
+            else
+            {
+                OnAnswerIncorrect();
+            }
+        }
+
+        /// <summary>
+        /// Overload that compares passed string answer with PuzzleBehaviour.PuzzleAnswer
+        /// </summary>
+        public void CompareAnswer(string answer)
+        {
+            int numAnswer = int.Parse(answer);
+
+            if (numAnswer == m_Answer)
+            {
+                OnAnswerCorrect();
+            }
+            else
+            {
+                OnAnswerIncorrect();
+            }
+        }
+
+        /// <summary>
+        /// Event callback handling correct answers
+        /// </summary>
+        public void OnAnswerCorrect()
+        {
+            Debug.Log("Correct!");
+        }
+
+        /// <summary>
+        /// Event callback handling incorrect answers
+        /// </summary>
+        public void OnAnswerIncorrect()
+        {
+            Debug.Log("Incorrect!");
         }
     }
 }
