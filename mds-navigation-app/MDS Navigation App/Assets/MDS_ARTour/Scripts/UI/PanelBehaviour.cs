@@ -27,8 +27,6 @@ namespace ARTour
 
         protected List<AnimationComplete> m_AnimationCompleters = new List<AnimationComplete>();
 
-        protected bool m_AnimationComplete = false;
-
         public virtual void Awake()
         {
             // Assertions
@@ -58,12 +56,10 @@ namespace ARTour
 
             if (difference.x > 0.5f || difference.y > 0.5f)
             {
-                m_AnimationComplete = false;
                 parentTransform.anchoredPosition -= difference * Time.deltaTime * speed;
             }
             else
             {
-                m_AnimationComplete = true;
                 OnAnimationComplete();
             }
         }
@@ -77,12 +73,7 @@ namespace ARTour
 
             if (difference.x > 0.5f || difference.y > 0.5f)
             {
-                m_AnimationComplete = false;
                 parentTransform.anchoredPosition += difference * Time.deltaTime * speed;
-            }
-            else
-            {
-                m_AnimationComplete = true;
             }
         }
 

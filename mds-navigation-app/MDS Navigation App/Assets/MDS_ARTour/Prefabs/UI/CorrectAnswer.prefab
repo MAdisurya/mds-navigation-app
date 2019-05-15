@@ -281,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTransform: {fileID: 4986553012420471227}
   slideInXY: {x: 0, y: 0}
-  slideOutXY: {x: 0, y: 4000}
+  slideOutXY: {x: 0, y: 3000}
 --- !u!1 &7065415582057152509
 GameObject:
   m_ObjectHideFlags: 0
