@@ -13,6 +13,7 @@ namespace ARTour
         public PuzzleBehaviour puzzlePanel;     // The puzzle challenge GUI parent
 
         public PanelBehaviour correctPanel;    // The correct GUI panel parent
+        public PanelBehaviour scanPanel;    // The scan GUI panel parent
 
         private List<RectTransform> m_AllGUI = new List<RectTransform>();   // A list that holds all the GUI elements
 
@@ -21,6 +22,9 @@ namespace ARTour
             // Assertions
             Assert.IsNotNull(arrowPanel);
             Assert.IsNotNull(arrow);
+            Assert.IsNotNull(puzzlePanel);
+            Assert.IsNotNull(correctPanel);
+            Assert.IsNotNull(scanPanel);
         }
 
         public void Start()

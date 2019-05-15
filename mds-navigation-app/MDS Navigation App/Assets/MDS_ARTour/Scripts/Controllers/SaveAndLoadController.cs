@@ -213,6 +213,9 @@ namespace ARTour
                                     // Manage UI
                                     ActivateLoadButton(false);
                                     locationDropdown.ClearOptions();
+                                    
+                                    // Enable the scan panel UI
+                                    MainController.Instance.GetGUIController().scanPanel.EnablePanel();
 
                                     isLoaded = true;
                                 }

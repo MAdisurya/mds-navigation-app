@@ -185,14 +185,14 @@ namespace ARTour
 
         void OnGUI()
         {
-            GUI.skin.label.fontSize = Screen.width / 20;
+            // GUI.skin.label.fontSize = Screen.width / 20;
 
-            GUILayout.BeginArea(new Rect(20, 600, 400, 400));
+            // GUILayout.BeginArea(new Rect(20, 600, 400, 400));
 
-            // Label for the gyro attitude
-            GUILayout.Label("Gyro Attitude: " + Input.gyro.attitude);
+            // // Label for the gyro attitude
+            // GUILayout.Label("Gyro Attitude: " + Input.gyro.attitude);
 
-            GUILayout.EndArea();
+            // GUILayout.EndArea();
         }
 
         /// <summary>
@@ -249,6 +249,9 @@ namespace ARTour
                 _saveAndLoadController.ActivateSaveButton(true);
                 _saveAndLoadController.ActivateNewButton(true);
                 _saveAndLoadController.locationDropdown.gameObject.SetActive(true);
+
+                // Disable the scan panel UI
+                _guiController.scanPanel.DisablePanel();
 
                 if (_saveAndLoadController.DownloadedMetadata != null)
                 {
