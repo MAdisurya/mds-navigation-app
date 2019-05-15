@@ -126,7 +126,7 @@ namespace ARTour
 
             if (m_NumOfCompletedPuzzles >= NumOfPuzzles)
             {
-                MainController.Instance.EndTimer();
+                MainController.Instance.OnWin();
             }
         }
 

@@ -266,6 +266,20 @@ namespace ARTour
             m_IsTiming = false;
         }
 
+        /// <summary>
+        /// Event callback for when player wins
+        /// </summary>
+        public void OnWin()
+        {
+            EndTimer();
+
+            _guiController.timerText.text = "Your time: " + Mathf.Floor(m_Timer) + " seconds";
+            _guiController.winPanel.EnablePanel();
+            _guiController.DisableGUI();
+
+            DisableCamera();
+        }
+
         // Called when a new pose is received from Placenote
         public void OnPose(Matrix4x4 outputPose, Matrix4x4 arkitPose) { }
 

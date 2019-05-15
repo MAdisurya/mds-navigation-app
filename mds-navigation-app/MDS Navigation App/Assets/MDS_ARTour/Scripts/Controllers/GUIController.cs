@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 
 namespace ARTour
@@ -14,6 +15,9 @@ namespace ARTour
 
         public PanelBehaviour correctPanel;    // The correct GUI panel parent
         public PanelBehaviour scanPanel;    // The scan GUI panel parent
+        public PanelBehaviour winPanel;     // The win GUI panel parent
+
+        public Text timerText;      // The timer text in the win panel
 
         private List<RectTransform> m_AllGUI = new List<RectTransform>();   // A list that holds all the GUI elements
 
@@ -25,6 +29,7 @@ namespace ARTour
             Assert.IsNotNull(puzzlePanel);
             Assert.IsNotNull(correctPanel);
             Assert.IsNotNull(scanPanel);
+            Assert.IsNotNull(winPanel);
         }
 
         public void Start()
