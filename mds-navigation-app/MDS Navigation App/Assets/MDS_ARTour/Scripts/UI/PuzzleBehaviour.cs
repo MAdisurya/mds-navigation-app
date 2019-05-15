@@ -106,9 +106,9 @@ namespace ARTour
         /// </summary>
         public void OnAnswerCorrect()
         {   
-            MainController.Instance.GetGUIController().correctPanel.AddAnimationCompleteDelegate(
-                delegate { DisablePanel(); }
-            );
+            AnimationComplete completion = DisablePanel;
+
+            MainController.Instance.GetGUIController().correctPanel.AddAnimationCompleteDelegate(completion);
             MainController.Instance.GetGUIController().correctPanel.EnablePanel();
 
             incorrectLabel.enabled = false;
