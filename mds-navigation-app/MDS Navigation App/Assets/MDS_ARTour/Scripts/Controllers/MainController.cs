@@ -117,6 +117,11 @@ namespace ARTour
         {
             #if UNITY_EDITOR
 
+            if (_mode == Mode.EDITOR_MODE)
+            {
+                return;
+            }
+
             Quaternion cameraRotation = _mainCamera.transform.rotation;
 
             // Modify GUI based on orientation.x
