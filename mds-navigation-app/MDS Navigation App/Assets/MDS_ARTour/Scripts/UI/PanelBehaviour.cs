@@ -12,6 +12,8 @@ namespace ARTour
         public Vector2 slideInXY;
         public Vector2 slideOutXY;
 
+        public delegate void AnimationComplete();
+
         protected enum AnimatingState
         {
             SLIDE_IN,
@@ -22,6 +24,10 @@ namespace ARTour
         protected AnimatingState m_CurrAnimState = AnimatingState.NONE;
 
         protected Vector2 m_CurrSlideXY = new Vector2();
+
+        protected List<AnimationComplete> m_AnimationCompleters = new List<AnimationComplete>();
+
+        protected bool m_AnimationComplete = false;
 
         public virtual void Awake()
         {
@@ -52,7 +58,13 @@ namespace ARTour
 
             if (difference.x > 0.5f || difference.y > 0.5f)
             {
+                m_AnimationComplete = false;
                 parentTransform.anchoredPosition -= difference * Time.deltaTime * speed;
+            }
+            else
+            {
+                m_AnimationComplete = true;
+                OnAnimationComplete();
             }
         }
 
@@ -65,7 +77,12 @@ namespace ARTour
 
             if (difference.x > 0.5f || difference.y > 0.5f)
             {
+                m_AnimationComplete = false;
                 parentTransform.anchoredPosition += difference * Time.deltaTime * speed;
+            }
+            else
+            {
+                m_AnimationComplete = true;
             }
         }
 
@@ -85,6 +102,35 @@ namespace ARTour
         {
             m_CurrSlideXY = slideOutXY;
             m_CurrAnimState = AnimatingState.SLIDE_OUT;
+
+            ClearAnimationCompleteDelegates();
+        }
+
+        /// <summary>
+        /// Event callback for when GUI slide in/out animation is completed
+        /// </summary>
+        public void AddAnimationCompleteDelegate(AnimationComplete completion)
+        {
+            m_AnimationCompleters.Add(completion);
+        }
+
+        /// <summary>
+        /// Clears all the animation complete delegates from memory
+        /// </summary>
+        public void ClearAnimationCompleteDelegates()
+        {
+            m_AnimationCompleters.Clear();
+        }
+
+        /// <summary>
+        /// Event callback for when animation is completed
+        /// </summary>
+        public void OnAnimationComplete()
+        {
+            foreach(AnimationComplete completion in m_AnimationCompleters)
+            {
+                completion();
+            }
         }
     }
 }

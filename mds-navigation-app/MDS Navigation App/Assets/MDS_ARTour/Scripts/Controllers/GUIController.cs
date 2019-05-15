@@ -10,7 +10,9 @@ namespace ARTour
         public RectTransform arrowPanel;    // The background panel for the arrow pointer
         public RectTransform arrow;     // The arrow for navigation
         
-        public PuzzleBehaviour puzzlePanel; // The puzzle challenge GUI parent
+        public PuzzleBehaviour puzzlePanel;     // The puzzle challenge GUI parent
+
+        public PanelBehaviour correctPanel;    // The correct GUI panel parent
 
         private List<RectTransform> m_AllGUI = new List<RectTransform>();   // A list that holds all the GUI elements
 
