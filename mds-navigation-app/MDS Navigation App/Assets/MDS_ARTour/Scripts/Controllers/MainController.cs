@@ -37,6 +37,9 @@ namespace ARTour
 
         private GyroOrientation m_CurrGyroOrientation = GyroOrientation.INITIALIZING;
 
+        private float m_Timer = 0f;
+        private bool m_IsTiming = false;
+
         // Reference to controllers
         [SerializeField]
         private SaveAndLoadController _saveAndLoadController;
@@ -181,6 +184,12 @@ namespace ARTour
             }
 
             #endif
+
+            if (m_IsTiming)
+            {
+                m_Timer += Time.deltaTime;
+                Debug.Log(m_Timer);
+            }
         }
 
         void OnGUI()
@@ -231,6 +240,32 @@ namespace ARTour
             _mainCamera.enabled = true;
         }
 
+        /// <summary>
+        /// Starts the timer
+        /// </summary>
+        public void StartTimer()
+        {
+            if (_mode != Mode.PLAY_MODE)
+            {
+                return;
+            }
+
+            m_IsTiming = true;
+        }
+
+        /// <summary>
+        /// Ends the timer
+        /// </summary>
+        public void EndTimer()
+        {
+            if (_mode != Mode.PLAY_MODE)
+            {
+                return;
+            }
+
+            m_IsTiming = false;
+        }
+
         // Called when a new pose is received from Placenote
         public void OnPose(Matrix4x4 outputPose, Matrix4x4 arkitPose) { }
 
@@ -252,6 +287,8 @@ namespace ARTour
 
                 // Disable the scan panel UI
                 _guiController.scanPanel.DisablePanel();
+
+                StartTimer();
 
                 if (_saveAndLoadController.DownloadedMetadata != null)
                 {

@@ -276,6 +276,9 @@ namespace ARTour
             if (nodeType == MDSNodeType.ENDPOINT)
             {
                 m_TargetNodeObjList.Add(newNode);
+                
+                // Add one to number of puzzles
+                MainController.Instance.GetGUIController().puzzlePanel.NumOfPuzzles += 1;
             }
         }
         

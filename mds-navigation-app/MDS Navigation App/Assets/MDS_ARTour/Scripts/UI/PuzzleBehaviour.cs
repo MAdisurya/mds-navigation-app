@@ -18,6 +18,9 @@ namespace ARTour
 
         private int m_Answer;
 
+        private uint m_NumOfPuzzles = 0;
+        private uint m_NumOfCompletedPuzzles = 0;
+
         // Getters / Setters
         public string PuzzleImageName
         {
@@ -29,6 +32,12 @@ namespace ARTour
         {
             get { return m_Answer; }
             set { m_Answer = value; }
+        }
+
+        public uint NumOfPuzzles
+        {
+            get { return m_NumOfPuzzles; }
+            set { m_NumOfPuzzles = value; }
         }
 
         /// <summary>
@@ -112,6 +121,13 @@ namespace ARTour
             MainController.Instance.GetGUIController().correctPanel.EnablePanel();
 
             incorrectLabel.enabled = false;
+
+            m_NumOfCompletedPuzzles += 1;
+
+            if (m_NumOfCompletedPuzzles >= NumOfPuzzles)
+            {
+                MainController.Instance.EndTimer();
+            }
         }
 
         /// <summary>
