@@ -278,7 +278,10 @@ namespace ARTour
                 m_TargetNodeObjList.Add(newNode);
                 
                 // Add one to number of puzzles
-                MainController.Instance.GetGUIController().puzzlePanel.NumOfPuzzles += 1;
+                if (MainController.Instance._mode == Mode.PLAY_MODE)
+                {
+                    MainController.Instance.GetGUIController().puzzlePanel.NumOfPuzzles += 1;
+                }
             }
         }
         

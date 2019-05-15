@@ -300,7 +300,10 @@ namespace ARTour
                 _saveAndLoadController.locationDropdown.gameObject.SetActive(true);
 
                 // Disable the scan panel UI
-                _guiController.scanPanel.DisablePanel();
+                if (_mode == Mode.PLAY_MODE)
+                {
+                    _guiController.scanPanel.DisablePanel();
+                }
 
                 StartTimer();
 
