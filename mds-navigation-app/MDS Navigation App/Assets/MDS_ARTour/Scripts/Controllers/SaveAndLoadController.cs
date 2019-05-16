@@ -146,7 +146,6 @@ namespace ARTour
 
                         // Clear current nodes after saving
                         MainController.Instance.GetNodeController().ClearNodes();
-                        FeaturesVisualizer.clearPointcloud();
                     }
                     else if (faulted)
                     {
@@ -226,6 +225,8 @@ namespace ARTour
                                     MainController.Instance.GetGUIController().scanPanel.EnablePanel();
 
                                     isLoaded = true;
+
+                                    FeaturesVisualizer.clearPointcloud();
                                 }
                                 else
                                 {
