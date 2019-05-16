@@ -153,7 +153,7 @@ namespace ARTour
                     }
                     else if (faulted)
                     {
-                        notificationText.text = "Upload of map: " + m_SavedMapId + " failed";
+                        notificationText.text = "Upload of map: " + newMapId + " failed";
                     }
                     else 
                     {
@@ -204,14 +204,7 @@ namespace ARTour
                                     m_DownloadedMetadata = result;
 
                                     // Try to localize the map
-                                    if (MainController.Instance._mode == Mode.EDITOR_MODE)
-                                    {
-                                        LibPlacenote.Instance.StartSession(true);
-                                    }
-                                    else
-                                    {
-                                        LibPlacenote.Instance.StartSession();
-                                    }
+                                    LibPlacenote.Instance.StartSession();
                                     
                                     notificationText.text = "Trying to Localize Map: " + m_SavedMapId;
 

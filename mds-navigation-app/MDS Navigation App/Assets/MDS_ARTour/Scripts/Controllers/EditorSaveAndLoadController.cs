@@ -52,7 +52,14 @@ namespace ARTour
             ActivateLocationDropdown(false);
 
             // Start the LibPlacenote session
-            LibPlacenote.Instance.StartSession();
+            if (isLoaded)
+            {
+                LibPlacenote.Instance.StartSession(true);
+            }
+            else
+            {
+                LibPlacenote.Instance.StartSession();
+            }
         }
 
         /// <summary>
@@ -79,36 +86,40 @@ namespace ARTour
             ActivateSaveButton(false);
             ActivateLocationDropdown(false);
 
+            string newMapId = "";
+
             LibPlacenote.Instance.SaveMap(
                 (mapId) =>
                 {
-                    if (isLoaded)
-                    {
-                        DeleteMap(m_SavedMapId);
-                    }
-
-                    m_SavedMapId = mapId;
+                    newMapId = mapId;
 
                     WriteMapIDToFile(mapId);
 
                     LibPlacenote.Instance.StopSession();
-                    FeaturesVisualizer.clearPointcloud();
                 },
                 (completed, faulted, percentage) =>
                 {
                     if (completed)
                     {
-                        notificationText.text = "Upload Complete: " + m_SavedMapId;
+                        notificationText.text = "Upload Complete: " + newMapId;
 
                         // Upload meta data
                         LibPlacenote.MapMetadataSettable metadata = CreateMetaDataObject();
 
-                        LibPlacenote.Instance.SetMetadata(m_SavedMapId, metadata, 
+                        LibPlacenote.Instance.SetMetadata(newMapId, metadata, 
                             (success) =>
                             {
                                 if (success)
                                 {
                                     notificationText.text = "Meta data successfully saved";
+
+                                    if (isLoaded)
+                                    {
+                                        DeleteMap(m_SavedMapId);
+                                        isLoaded = false;
+                                    }
+
+                                    m_SavedMapId = newMapId;
                                 }
                                 else
                                 {
@@ -122,7 +133,7 @@ namespace ARTour
                     }
                     else if (faulted)
                     {
-                        notificationText.text = "Upload of map: " + m_SavedMapId + " failed";
+                        notificationText.text = "Upload of map: " + newMapId + " failed";
                     }
                     else 
                     {
@@ -189,6 +200,8 @@ namespace ARTour
                                     locationDropdown.ClearOptions();
 
                                     isLoaded = true;
+
+                                    FeaturesVisualizer.clearPointcloud();
                                 }
                                 else
                                 {
