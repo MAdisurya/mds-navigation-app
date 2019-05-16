@@ -106,16 +106,12 @@ namespace ARTour
             ActivateLoadButton(true);
             ActivateLocationDropdown(false);
 
+            string newMapId = "";
+
             LibPlacenote.Instance.SaveMap(
                 (mapId) =>
                 {
-                    if (isLoaded)
-                    {
-                        DeleteMap(m_SavedMapId);
-                        isLoaded = false;
-                    }
-
-                    m_SavedMapId = mapId;
+                    newMapId = mapId;
 
                     WriteMapIDToFile(mapId);
 
@@ -125,17 +121,25 @@ namespace ARTour
                 {
                     if (completed)
                     {
-                        notificationText.text = "Upload Complete: " + m_SavedMapId;
+                        notificationText.text = "Upload Complete: " + newMapId;
 
                         // Upload meta data
                         LibPlacenote.MapMetadataSettable metadata = CreateMetaDataObject();
 
-                        LibPlacenote.Instance.SetMetadata(m_SavedMapId, metadata, 
+                        LibPlacenote.Instance.SetMetadata(newMapId, metadata, 
                             (success) =>
                             {
                                 if (success)
                                 {
                                     notificationText.text = "Meta data successfully saved";
+
+                                    if (isLoaded)
+                                    {
+                                        DeleteMap(m_SavedMapId);
+                                        isLoaded = false;
+                                    }
+
+                                    m_SavedMapId = newMapId;
                                 }
                                 else
                                 {

@@ -28,5 +28,13 @@ namespace ARTour
                 }
             }
         }
+
+        void OnTriggerExit(Collider other)
+        {
+            if (other.GetComponent<MDSNode>() != null)
+            {
+                other.GetComponent<MDSNode>().Deactivate();
+            }
+        }
     }
 }
