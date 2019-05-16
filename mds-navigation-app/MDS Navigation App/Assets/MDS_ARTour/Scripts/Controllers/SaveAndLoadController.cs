@@ -182,12 +182,6 @@ namespace ARTour
                 m_SavedMapId = mapListView.CurrentMapId;
             }
 
-            // if (m_SavedMapId == null)
-            // {
-            //     notificationText.text = "You haven't saved a map yet!";
-            //     return;
-            // }
-
             notificationText.text = "Loading map...";
 
             // Manage UI
@@ -229,8 +223,6 @@ namespace ARTour
                                     MainController.Instance.GetGUIController().scanPanel.EnablePanel();
 
                                     isLoaded = true;
-
-                                    FeaturesVisualizer.clearPointcloud();
                                 }
                                 else
                                 {
