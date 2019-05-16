@@ -21,6 +21,8 @@ namespace ARTour
 
         private List<RectTransform> m_AllGUI = new List<RectTransform>();   // A list that holds all the GUI elements
 
+        private List<PanelBehaviour> m_Panels = new List<PanelBehaviour>();     // A list that holds all registered panel behaviours
+
         public void Awake()
         {
             // Assertions
@@ -37,6 +39,10 @@ namespace ARTour
             // Add all gui elements into gui list
             m_AllGUI.Add(arrowPanel);
             m_AllGUI.Add(arrow);
+            
+            // Add panels to m_Panels list
+            m_Panels.Add(puzzlePanel);
+            m_Panels.Add(correctPanel);
         }
 
         /// <summary>
@@ -142,6 +148,22 @@ namespace ARTour
                     arrow.anchoredPosition += posDifference * Time.deltaTime * speed;
                 }
             }
+        }
+
+        /// <summary>
+        /// Checks if any panels are active and returns a boolean
+        /// </summary>
+        public bool IsPanelActive()
+        {
+            foreach (PanelBehaviour panel in m_Panels)
+            {
+                if (panel.isActive)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

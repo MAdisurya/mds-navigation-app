@@ -158,29 +158,32 @@ namespace ARTour
             // Calculate the gyro orientation
             GetGyroOrientation();
 
-            if (m_CurrGyroOrientation == GyroOrientation.FACE_DOWN)
+            if (!_guiController.IsPanelActive())
             {
-                // Enlarge the arrowPanel
-                _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
+                if (m_CurrGyroOrientation == GyroOrientation.FACE_DOWN)
+                {
+                    // Enlarge the arrowPanel
+                    _guiController.AnimateArrowPanelSize(new Vector2(4000, 8000), 4.0f);
 
-                // Enlarge arrow, and move arrow up
-                _guiController.AnimateArrowSize(new Vector2(800, 800), 4.0f);
-                _guiController.AnimateArrowPos(new Vector2(0, 1200), 4.0f);
+                    // Enlarge arrow, and move arrow up
+                    _guiController.AnimateArrowSize(new Vector2(800, 800), 4.0f);
+                    _guiController.AnimateArrowPos(new Vector2(0, 1200), 4.0f);
 
-                // Disable the camera
-                DisableCamera();
-            }
-            else if (m_CurrGyroOrientation == GyroOrientation.FACE_UP)
-            {
-                // Shrink the arrowPanel
-                _guiController.AnimateArrowPanelSize(new Vector2(2500, 1400), 4.0f);
+                    // Disable the camera
+                    DisableCamera();
+                }
+                else if (m_CurrGyroOrientation == GyroOrientation.FACE_UP)
+                {
+                    // Shrink the arrowPanel
+                    _guiController.AnimateArrowPanelSize(new Vector2(2500, 1400), 4.0f);
 
-                // Shrink arrow, and move arrow down
-                _guiController.AnimateArrowSize(new Vector2(300, 300), 4.0f);
-                _guiController.AnimateArrowPos(new Vector2(0, 300), 4.0f);
+                    // Shrink arrow, and move arrow down
+                    _guiController.AnimateArrowSize(new Vector2(300, 300), 4.0f);
+                    _guiController.AnimateArrowPos(new Vector2(0, 300), 4.0f);
 
-                // Enable the camera
-                EnableCamera();
+                    // Enable the camera
+                    EnableCamera();
+                }
             }
 
             #endif

@@ -12,6 +12,8 @@ namespace ARTour
         public Vector2 slideInXY;
         public Vector2 slideOutXY;
 
+        public bool isActive = false;
+
         public delegate void AnimationComplete();
 
         protected enum AnimatingState
@@ -84,6 +86,10 @@ namespace ARTour
         {
             m_CurrSlideXY = slideInXY;
             m_CurrAnimState = AnimatingState.SLIDE_IN;
+
+            isActive = true;
+
+            MainController.Instance.DisableCamera();
         }
 
         /// <summary>
@@ -95,6 +101,8 @@ namespace ARTour
             m_CurrAnimState = AnimatingState.SLIDE_OUT;
 
             ClearAnimationCompleteDelegates();
+
+            isActive = false;
         }
 
         /// <summary>
