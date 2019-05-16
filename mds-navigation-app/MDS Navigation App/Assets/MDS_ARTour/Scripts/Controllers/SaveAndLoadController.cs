@@ -112,6 +112,7 @@ namespace ARTour
                     if (isLoaded)
                     {
                         DeleteMap(m_SavedMapId);
+                        isLoaded = false;
                     }
 
                     m_SavedMapId = mapId;
@@ -119,7 +120,6 @@ namespace ARTour
                     WriteMapIDToFile(mapId);
 
                     LibPlacenote.Instance.StopSession();
-                    FeaturesVisualizer.clearPointcloud();
                 },
                 (completed, faulted, percentage) =>
                 {
@@ -146,6 +146,7 @@ namespace ARTour
 
                         // Clear current nodes after saving
                         MainController.Instance.GetNodeController().ClearNodes();
+                        FeaturesVisualizer.clearPointcloud();
                     }
                     else if (faulted)
                     {
@@ -173,7 +174,7 @@ namespace ARTour
             // Read saved map Id from file
             m_SavedMapId = ReadMapIDFromFile();
             
-            if (mapListView.CurrentMapId != null)
+            if (mapListView.CurrentMapId != m_SavedMapId)
             {
                 m_SavedMapId = mapListView.CurrentMapId;
             }
@@ -206,7 +207,14 @@ namespace ARTour
                                     m_DownloadedMetadata = result;
 
                                     // Try to localize the map
-                                    LibPlacenote.Instance.StartSession();
+                                    if (MainController.Instance._mode == Mode.EDITOR_MODE)
+                                    {
+                                        LibPlacenote.Instance.StartSession(true);
+                                    }
+                                    else
+                                    {
+                                        LibPlacenote.Instance.StartSession();
+                                    }
                                     
                                     notificationText.text = "Trying to Localize Map: " + m_SavedMapId;
 
