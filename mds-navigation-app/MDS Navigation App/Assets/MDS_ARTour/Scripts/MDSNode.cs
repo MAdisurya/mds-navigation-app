@@ -105,6 +105,7 @@ namespace ARTour
         {
             if (isAnswered)
             {
+                Deactivate();
                 return;
             }
 

@@ -6,7 +6,7 @@ namespace ARTour
 {
     public class NavPawn : MonoBehaviour
     {
-        void OnTriggerEnter(Collider other)
+        void OnTriggerStay(Collider other)
         {
             if (MainController.Instance.GetNodeController().EraseMode)
             {
