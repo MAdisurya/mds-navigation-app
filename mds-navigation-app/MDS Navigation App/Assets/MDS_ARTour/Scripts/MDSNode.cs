@@ -21,6 +21,8 @@ namespace ARTour
 
         public MDSNodeInput nameInputBehaviour;
         public MDSNodeInput answerInputBehaviour;
+
+        public bool isAnswered = false;
         
         private float m_HCost;
         private float m_GCost;
@@ -101,6 +103,11 @@ namespace ARTour
         /// </summary>
         public void Activate()
         {
+            if (isAnswered)
+            {
+                return;
+            }
+
             transform.GetChild(0).gameObject.SetActive(true);
 
             MainController.Instance.GetNodeController().ActiveNodeObjList.Add(this);

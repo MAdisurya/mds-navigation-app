@@ -658,8 +658,10 @@ MonoBehaviour:
   parentTransform: {fileID: 3707389052555243865}
   slideInXY: {x: 0, y: 0}
   slideOutXY: {x: 0, y: 3000}
+  isActive: 0
   puzzleImage: {fileID: 3707389050979597168}
   incorrectLabel: {fileID: 1420352127}
+  answerField: {fileID: 3707389051451255234}
 --- !u!1 &3707389052798334906
 GameObject:
   m_ObjectHideFlags: 0

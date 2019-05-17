@@ -1673,11 +1673,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PuzzleChallenge
       objectReference: {fileID: 0}
-    - target: {fileID: 3707389052555243864, guid: 6aec1d780071544d3892fbfe066e5ae3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3707389052555243865, guid: 6aec1d780071544d3892fbfe066e5ae3,
         type: 3}
       propertyPath: m_LocalPosition.x

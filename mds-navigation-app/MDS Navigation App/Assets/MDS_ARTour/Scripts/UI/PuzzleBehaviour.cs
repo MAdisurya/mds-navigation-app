@@ -12,6 +12,8 @@ namespace ARTour
 
         public Text incorrectLabel;
 
+        public InputField answerField;
+
         private List<Sprite> m_PuzzleSprites = new List<Sprite>();
 
         private string m_ImageName;
@@ -66,6 +68,7 @@ namespace ARTour
             // Assertions
             Assert.IsNotNull(puzzleImage);
             Assert.IsNotNull(incorrectLabel);
+            Assert.IsNotNull(answerField);
 
             // Pre-allocate memory for the puzzle challenge sprites
             Object[] puzzleSprites = Resources.LoadAll("Sprites/Puzzles/", typeof(Sprite));
@@ -108,6 +111,8 @@ namespace ARTour
             {
                 OnAnswerIncorrect();
             }
+
+            answerField.text = "";
         }
 
         /// <summary>
@@ -119,6 +124,8 @@ namespace ARTour
 
             MainController.Instance.GetGUIController().correctPanel.AddAnimationCompleteDelegate(completion);
             MainController.Instance.GetGUIController().correctPanel.EnablePanel();
+
+            MainController.Instance.GetNodeController().TargetNode.isAnswered = true;
 
             incorrectLabel.enabled = false;
 

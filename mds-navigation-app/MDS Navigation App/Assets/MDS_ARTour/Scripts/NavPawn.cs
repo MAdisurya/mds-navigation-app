@@ -22,7 +22,8 @@ namespace ARTour
             }
             else
             {
-                if (other.GetComponent<MDSNode>() != null)
+                if (other.GetComponent<MDSNode>() != null && 
+                    other.GetComponent<MDSNode>() == MainController.Instance.GetNodeController().TargetNode)
                 {
                     other.GetComponent<MDSNode>().Activate();
                 }
