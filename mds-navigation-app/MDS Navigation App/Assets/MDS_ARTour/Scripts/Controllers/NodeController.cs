@@ -19,8 +19,8 @@ namespace ARTour
         public float pz; // position.z
 
         public int nodeType; // mds node type stored using its raw value - int
-        public int answer = 0;  // the answer for the puzzle challenge
-
+        
+        public string answer = "";  // the answer for the puzzle challenge
         public string name = "node"; // the name of the node - defaults to "node"
     }
 
@@ -165,9 +165,9 @@ namespace ARTour
         /// <summary>
         /// Helper method that sets the passed nodes puzzle answer
         /// </summary>
-        public void SetNodeAnswer(MDSNode node, int answer)
+        public void SetNodeAnswer(MDSNode node, string answer)
         {
-            if (answer == 0)
+            if (answer == "")
             {
                 MainController.Instance.GetSaveAndLoadController().notificationText.text = "Please enter a value greater than 0!";
                 return;
@@ -263,7 +263,7 @@ namespace ARTour
             {
                 if (MainController.Instance._mode == Mode.EDITOR_MODE)
                 {
-                    newNode.answerInputBehaviour.SetInputText(nodeInfo.answer.ToString());
+                    newNode.answerInputBehaviour.SetInputText(nodeInfo.answer);
                 }
                 else
                 {

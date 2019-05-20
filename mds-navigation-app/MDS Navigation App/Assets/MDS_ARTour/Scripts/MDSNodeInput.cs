@@ -41,7 +41,7 @@ namespace ARTour
                 {
                     // Set node answer
                     m_InputField.onEndEdit.AddListener(
-                        delegate { MainController.Instance.GetNodeController().SetNodeAnswer(m_NodeParent, int.Parse(m_InputField.text)); }
+                        delegate { MainController.Instance.GetNodeController().SetNodeAnswer(m_NodeParent, m_InputField.text); }
                     );
                 }
             }

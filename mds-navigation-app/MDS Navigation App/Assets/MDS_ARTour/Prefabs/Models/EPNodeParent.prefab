@@ -61,6 +61,7 @@ MonoBehaviour:
   neighbors: []
   nameInputBehaviour: {fileID: 5517746138681207391}
   answerInputBehaviour: {fileID: 6450160606947685345}
+  isAnswered: 0
 --- !u!1001 &8346939164859833863
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ namespace ARTour
 
         private string m_ImageName;
 
-        private int m_Answer;
+        private string m_Answer;
 
         private uint m_NumOfPuzzles = 0;
         private uint m_NumOfCompletedPuzzles = 0;
@@ -30,7 +30,7 @@ namespace ARTour
             set { m_ImageName = value; }
         }
 
-        public int PuzzleAnswer
+        public string PuzzleAnswer
         {
             get { return m_Answer; }
             set { m_Answer = value; }
@@ -45,7 +45,7 @@ namespace ARTour
         /// <summary>
         /// Helper method that sets the image name and answer
         /// </summary>
-        public void SetImageAndAnswer(string name, int answer)
+        public void SetImageAndAnswer(string name, string answer)
         {
             m_ImageName = name;
             m_Answer = answer;
@@ -84,26 +84,9 @@ namespace ARTour
         /// <summary>
         /// Compares passed answer with PuzzleBehaviour.PuzzleAnswer
         /// </summary>
-        public void CompareAnswers(int answer)
-        {
-            if (answer == m_Answer)
-            {
-                OnAnswerCorrect();
-            }
-            else
-            {
-                OnAnswerIncorrect();
-            }
-        }
-
-        /// <summary>
-        /// Overload that compares passed string answer with PuzzleBehaviour.PuzzleAnswer
-        /// </summary>
         public void CompareAnswer(string answer)
         {
-            int numAnswer = int.Parse(answer);
-
-            if (numAnswer == m_Answer)
+            if (answer == m_Answer)
             {
                 OnAnswerCorrect();
             }
