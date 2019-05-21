@@ -1500,6 +1500,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 3759897933870582685, guid: 609db0a8bcf904006800f2103390db36,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3759897933870582686, guid: 609db0a8bcf904006800f2103390db36,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2081,6 +2086,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ScanPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8253745197480152950, guid: 4f5b5080e15434c3897bcffba9dcc372,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8253745197480152945, guid: 4f5b5080e15434c3897bcffba9dcc372,
         type: 3}
